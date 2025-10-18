@@ -127,7 +127,7 @@ lines = do
     skipHSpace
     pointIndices <- parsePointIndices
     pts <- case pointIndices of
-      _:_:_ -> pure $ zipWith Line pointIndices (tail pointIndices)
+      _:_:_ -> pure $ zipWith Line pointIndices (drop 1 pointIndices)
       _ -> fail "line doesn't have at least two points"
     eol
     pure pts
