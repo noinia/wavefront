@@ -95,7 +95,11 @@ lexer stream = execState (traverse_ consume stream) emptyCtxt
         modify $ \ctxt -> ctxt { ctxtLines = lns `DList.append` fmap element (DList.fromList l) }
       TknF f -> do
         (fcs,element) <- prepareElement ctxtFaces
-        modify $ \ctxt -> ctxt { ctxtFaces = fcs `DList.snoc` element f }
+        modify $ \ctxt -> let numLoc      = length . ctxtLocations $ ctxt
+                              numTextures = length . ctxtTexCoords $ ctxt
+                              numNormals  = length . ctxtNormals   $ ctxt
+                              f' = mapFaceIndices (toAbsoluteIndex numLoc numTextures numNormals) f
+                          in ctxt { ctxtFaces = fcs `DList.snoc` element f' }
       TknG g -> modify $ \ctxt -> ctxt { ctxtCurrentGroups = g }
       TknO o -> modify $ \ctxt -> ctxt { ctxtCurrentObject = Just o }
       TknMtlLib l -> do
@@ -109,3 +113,17 @@ prepareElement :: (Ctxt -> DList (Element a)) -> State Ctxt (DList (Element a),a
 prepareElement field = do
   (aList,obj,grp,mtl,sg) <- gets $ (\ctxt -> (field ctxt,ctxtCurrentObject ctxt,ctxtCurrentGroups ctxt,ctxtCurrentMtl ctxt,ctxtCurrentSmoothingGroup ctxt))
   pure (aList,Element obj grp mtl sg)
+
+-- | map some function over the face indices
+mapFaceIndices                    :: (FaceIndex -> FaceIndex) -> Face -> Face
+mapFaceIndices f (Face i j k is) = Face (f i) (f j) (f k) (map f is)
+
+-- | Given the current number of locations, the current number of
+-- texture coordinates, and the current number of normals, make sure
+-- that the faceIndex uses absolute indices rather than relative ones.
+toAbsoluteIndex :: Int -> Int -> Int -> FaceIndex -> FaceIndex
+toAbsoluteIndex nLoc nTex nNorm (FaceIndex li ti ni) =
+    FaceIndex (toAbs nLoc li) (toAbs nTex <$> ti) (toAbs nNorm <$> ni)
+  where
+    toAbs n i | i >= 0    = i
+              | otherwise = n + i -- == n - abs i
