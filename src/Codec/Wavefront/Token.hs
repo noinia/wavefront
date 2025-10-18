@@ -113,10 +113,14 @@ texCoord = skipSpace *> string "vt " *> skipHSpace *> parseUVW <* eol
         _ -> fail "wrong number of u, v and w arguments for texture coordinates"
 
 ----------------------------------------------------------------------------------------------------
+-- VertexIndex ------------------------------------------------------------------------------------------
+vertexIndex :: Parser Int
+vertexIndex = (negate <$> (char '-' *> decimal)) <|> decimal
+----------------------------------------------------------------------------------------------------
 -- Points ------------------------------------------------------------------------------------------
 
 points :: Parser [Point]
-points = skipSpace *> string "p " *> skipHSpace *> fmap Point decimal `sepBy1` skipHSpace <* eol
+points = skipSpace *> string "p " *> skipHSpace *> fmap Point vertexIndex `sepBy1` skipHSpace <* eol
 
 ----------------------------------------------------------------------------------------------------
 -- Lines -------------------------------------------------------------------------------------------
@@ -134,8 +138,8 @@ lines = do
   where
     parsePointIndices = fmap (\(i,j) -> LineIndex i j) parseLinePair `sepBy1` skipHSpace
     parseLinePair = do
-      v <- decimal
-      slashThenElse (fmap (\vt -> (v, Just vt)) decimal) (pure (v,Nothing))
+      v <- vertexIndex
+      slashThenElse (fmap (\vt -> (v, Just vt)) vertexIndex) (pure (v,Nothing))
 
 ----------------------------------------------------------------------------------------------------
 -- Faces -------------------------------------------------------------------------------------------
@@ -153,13 +157,13 @@ face = do
   where
     parseFaceIndices = fmap (\(i,k,j) -> FaceIndex i k j) parseFaceTriple `sepBy1` skipHSpace
     parseFaceTriple = do
-      v <- decimal
+      v <- vertexIndex
       slashThenElse (parseVT v) (pure (v,Nothing,Nothing))
     parseVT v = slashThenElse (parseVN v Nothing) $ do
-      vt <- decimal
+      vt <- vertexIndex
       slashThenElse (parseVN v $ Just vt) (pure (v,Just vt,Nothing))
     parseVN v vt = do
-      vn <- decimal
+      vn <- vertexIndex
       pure (v,vt,Just vn)
 
 ----------------------------------------------------------------------------------------------------
