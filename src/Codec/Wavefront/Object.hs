@@ -11,6 +11,7 @@
 
 module Codec.Wavefront.Object where
 
+import Data.Foldable ( toList )
 import Codec.Wavefront.Element
 import Codec.Wavefront.Face
 import Codec.Wavefront.Lexer ( Ctxt(..) )
@@ -18,8 +19,9 @@ import Codec.Wavefront.Line
 import Codec.Wavefront.Location
 import Codec.Wavefront.Normal
 import Codec.Wavefront.Point
+import Codec.Wavefront.SizedDList ( SizedDList)
 import Codec.Wavefront.TexCoord
-import Data.DList ( DList, toList )
+import Data.DList ( DList )
 import Data.Text ( Text )
 import Data.Vector ( Vector, fromList )
 
@@ -42,9 +44,9 @@ data WavefrontOBJ = WavefrontOBJ {
 
 ctxtToWavefrontOBJ :: Ctxt -> WavefrontOBJ
 ctxtToWavefrontOBJ ctxt = WavefrontOBJ {
-    objLocations = fromDList (ctxtLocations ctxt)
-  , objTexCoords = fromDList (ctxtTexCoords ctxt)
-  , objNormals = fromDList (ctxtNormals ctxt)
+    objLocations = fromSizedDList (ctxtLocations ctxt)
+  , objTexCoords = fromSizedDList (ctxtTexCoords ctxt)
+  , objNormals = fromSizedDList (ctxtNormals ctxt)
   , objPoints = fromDList (ctxtPoints ctxt)
   , objLines = fromDList (ctxtLines ctxt)
   , objFaces = fromDList (ctxtFaces ctxt)
@@ -53,3 +55,6 @@ ctxtToWavefrontOBJ ctxt = WavefrontOBJ {
 
 fromDList :: DList a -> Vector a
 fromDList = fromList . toList
+
+fromSizedDList :: SizedDList a -> Vector a
+fromSizedDList = fromList . toList

@@ -19,20 +19,25 @@ import Codec.Wavefront.Normal
 import Codec.Wavefront.Point
 import Codec.Wavefront.Token
 import Codec.Wavefront.TexCoord
-import Data.DList ( DList, append, empty, fromList, snoc )
+import Codec.Wavefront.SizedDList (SizedDList)
+import qualified Codec.Wavefront.SizedDList as SizedDList
+import qualified Data.DList as DList
+import Data.DList ( DList ) --, append, empty, fromList, snoc )
 import Data.Text ( Text )
 import Control.Monad.State ( State, execState, gets, modify )
 import Data.Foldable ( traverse_ )
 import Numeric.Natural ( Natural )
 
+--------------------------------------------------------------------------------
+
 -- |The lexer context. The result of lexing a stream of tokens is this exact type.
 data Ctxt = Ctxt {
     -- |Locations.
-    ctxtLocations :: DList Location
+    ctxtLocations :: SizedDList Location
     -- |Texture coordinates.
-  , ctxtTexCoords :: DList TexCoord
+  , ctxtTexCoords :: SizedDList TexCoord
     -- |Normals.
-  , ctxtNormals :: DList Normal
+  , ctxtNormals :: SizedDList Normal
     -- |Points.
   , ctxtPoints :: DList (Element Point)
     -- |Lines.
@@ -55,16 +60,16 @@ data Ctxt = Ctxt {
 -- as we consume tokens.
 emptyCtxt :: Ctxt 
 emptyCtxt = Ctxt {
-    ctxtLocations = empty
-  , ctxtTexCoords = empty
-  , ctxtNormals = empty
-  , ctxtPoints = empty
-  , ctxtLines = empty
-  , ctxtFaces = empty
+    ctxtLocations = SizedDList.empty
+  , ctxtTexCoords = SizedDList.empty
+  , ctxtNormals = SizedDList.empty
+  , ctxtPoints = DList.empty
+  , ctxtLines = DList.empty
+  , ctxtFaces = DList.empty
   , ctxtCurrentObject = Nothing
   , ctxtCurrentGroups = ["default"]
   , ctxtCurrentMtl = Nothing
-  , ctxtMtlLibs = empty
+  , ctxtMtlLibs = DList.empty
   , ctxtCurrentSmoothingGroup = 0
   }
 
@@ -75,27 +80,27 @@ lexer stream = execState (traverse_ consume stream) emptyCtxt
     consume tk = case tk of
       TknV v -> do
         locations <- gets ctxtLocations
-        modify $ \ctxt -> ctxt { ctxtLocations = locations `snoc` v }
+        modify $ \ctxt -> ctxt { ctxtLocations = locations `SizedDList.snoc` v }
       TknVN vn -> do
         normals <- gets ctxtNormals
-        modify $ \ctxt -> ctxt { ctxtNormals = normals `snoc` vn }
+        modify $ \ctxt -> ctxt { ctxtNormals = normals `SizedDList.snoc` vn }
       TknVT vt -> do
         texCoords <- gets ctxtTexCoords
-        modify $ \ctxt -> ctxt { ctxtTexCoords = texCoords `snoc` vt }
+        modify $ \ctxt -> ctxt { ctxtTexCoords = texCoords `SizedDList.snoc` vt }
       TknP p -> do
         (pts,element) <- prepareElement ctxtPoints
-        modify $ \ctxt -> ctxt { ctxtPoints = pts `append` fmap element (fromList p) }
+        modify $ \ctxt -> ctxt { ctxtPoints = pts `DList.append` fmap element (DList.fromList p) }
       TknL l -> do
         (lns,element) <- prepareElement ctxtLines
-        modify $ \ctxt -> ctxt { ctxtLines = lns `append` fmap element (fromList l) }
+        modify $ \ctxt -> ctxt { ctxtLines = lns `DList.append` fmap element (DList.fromList l) }
       TknF f -> do
         (fcs,element) <- prepareElement ctxtFaces
-        modify $ \ctxt -> ctxt { ctxtFaces = fcs `snoc` element f }
+        modify $ \ctxt -> ctxt { ctxtFaces = fcs `DList.snoc` element f }
       TknG g -> modify $ \ctxt -> ctxt { ctxtCurrentGroups = g }
       TknO o -> modify $ \ctxt -> ctxt { ctxtCurrentObject = Just o }
       TknMtlLib l -> do
         libs <- gets ctxtMtlLibs
-        modify $ \ctxt -> ctxt { ctxtMtlLibs = libs `append` fromList l }
+        modify $ \ctxt -> ctxt { ctxtMtlLibs = libs `DList.append` DList.fromList l }
       TknUseMtl mtl -> modify $ \ctxt -> ctxt { ctxtCurrentMtl = Just mtl }
       TknS sg -> modify $ \ctxt -> ctxt { ctxtCurrentSmoothingGroup = sg }
 

@@ -37,6 +37,7 @@ library
 
   other-modules:       Codec.Wavefront.Token
                      , Codec.Wavefront.Lexer
+                     , Codec.Wavefront.SizedDList
 
   default-extensions:  OverloadedStrings
 
