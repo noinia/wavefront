@@ -15,7 +15,8 @@ copyright:           Dimitri Sabadie
 category:            Codec
 build-type:          Simple
 extra-source-files:  CHANGELOG.md
-cabal-version:       >= 1.10
+cabal-version:       2.0
+data-dir:            data
 
 source-repository head
   type:     git
@@ -35,9 +36,14 @@ library
                      , Codec.Wavefront.Point
                      , Codec.Wavefront.TexCoord
 
-  other-modules:       Codec.Wavefront.Token
+                     , Codec.Wavefront.Token
                      , Codec.Wavefront.Lexer
                      , Codec.Wavefront.SizedDList
+
+  -- other-modules:       Codec.Wavefront.Token
+  --                    , Codec.Wavefront.Lexer
+  --                    , Codec.Wavefront.SizedDList
+
 
   default-extensions:  OverloadedStrings
 
@@ -51,5 +57,26 @@ library
                      , vector       >= 0.11 && < 0.14
 
   hs-source-dirs:      src
+
+  default-language:    Haskell2010
+
+--------------------------------------------------------------------------------
+
+test-suite hspec
+  build-tool-depends: hspec-discover:hspec-discover
+  type:             exitcode-stdio-1.0
+  main-is:          Main.hs
+  hs-source-dirs: test
+  other-modules:
+      Spec
+      ParseSpec
+      Paths_wavefront
+  autogen-modules:
+      Paths_wavefront
+  build-depends:
+                       base
+                     , wavefront
+                     , hspec                           >= 2.9     && < 3
+                     , text
 
   default-language:    Haskell2010
