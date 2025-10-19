@@ -36,6 +36,12 @@ library
                      , Codec.Wavefront.Point
                      , Codec.Wavefront.TexCoord
 
+
+                     , Codec.Wavefront.Material
+                     , Codec.Wavefront.Material.Type
+                     , Codec.Wavefront.Material.Token
+
+
                      , Codec.Wavefront.Token
                      , Codec.Wavefront.Lexer
                      , Codec.Wavefront.SizedDList
