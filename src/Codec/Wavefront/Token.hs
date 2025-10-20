@@ -65,13 +65,13 @@ tokenize = fmap cleanupTokens . analyseResult False . parse (untilEnd tokenizer)
       , Nothing <$ comment
       ]
 
-analyseResult :: Bool -> Result [Maybe Token] -> Either String [Maybe Token]
+analyseResult :: Bool -> Result a -> Either String a
 analyseResult partial r = case r of
   Done _ tkns -> Right tkns
   Fail i _ e -> Left $ "`" ++ Prelude.take 10 (unpack i) ++ "` [...]: " ++ e
   Partial p -> if partial then Left "not completely tokenized" else analyseResult True (p T.empty)
 
-cleanupTokens :: [Maybe Token] -> TokenStream
+cleanupTokens :: [Maybe token] -> [token]
 cleanupTokens = catMaybes
 
 ----------------------------------------------------------------------------------------------------
@@ -219,7 +219,7 @@ eol = skipMany (satisfy isHorizontalSpace) *> (endOfLine <|> endOfInput)
 
 -- Parse a name (any character but space).
 name :: Parser Text
-name = takeWhile1 $ not . isSpace
+name = takeWhile1 $ not . (\c -> isSpace c || c == '#')
 
 spacedName :: Parser Text
 spacedName = strip <$> AP.takeWhile (flip notElem ("\n\r" :: String))

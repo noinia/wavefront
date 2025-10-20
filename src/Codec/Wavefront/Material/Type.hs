@@ -10,16 +10,17 @@ data CIEXYZ = CIEXYZ {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
   deriving (Show,Eq)
 
 
-data Reflexivity = ReflexicityRGB RGB
+data Reflexivity = ReflexicityRGB {-#UNPACK#-}!RGB
                  | ReflexivitySpectral FilePath (Maybe Float)
                           -- multiplication factor; default is one
-                 | ReflexivityCIE CIEXYZ
+                 | ReflexivityCIE {-#UNPACK#-}!CIEXYZ
                  deriving (Show,Eq)
 
 data Material = Material { materialName        :: Text
                          , ambientReflexivity  :: Maybe Reflexivity
                          , diffuseReflexivity  :: Maybe Reflexivity
                          , specularReflexivity :: Maybe Reflexivity
+                         , emmisiveReflexivity :: Maybe Reflexivity
                          , transmissionFilter  :: Maybe Reflexivity
                          , iluminationModel    :: Maybe IluminationModel
                          , disolveFactor       :: Maybe Float
