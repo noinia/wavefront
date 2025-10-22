@@ -15,7 +15,7 @@ import           Codec.Wavefront.Token
 import           Codec.Wavefront.Location
 import qualified Data.Text.IO as T ( readFile )
 import           Data.Text (pack)
-
+import qualified Codec.Wavefront.Material as M
 import qualified Codec.Wavefront.Material.Token as T
 import           Codec.Wavefront.Material.Type (Reflexivity(..), IluminationModel(..), RGB(..), CIEXYZ(..))
 import qualified Data.Attoparsec.Text as AP
@@ -53,6 +53,7 @@ spec = describe "parsing tests" $ do
            tokenize cornelBoxStr `shouldSatisfy` isRight
 
          mtlSpec
+
 
 
 myStr = "v  -1.01  0.00   0.99\nv   1.00  0.00   0.99"
@@ -146,3 +147,5 @@ tokenizeFile    :: FilePath -> Spec
 tokenizeFile fp = do str <- runIO $ Paths.getDataFileName fp >>= T.readFile
                      it ("tokenize " <> fp) $
                        T.tokenize str `shouldSatisfy` isRight
+                     it ("parse into materials " <> fp) $
+                       M.fromText str `shouldSatisfy` isRight

@@ -3,6 +3,8 @@ module Codec.Wavefront.Material.Type where
 import Data.Text ( Text )
 
 
+type MaterialName = Text
+
 data RGB = RGB {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
   deriving (Show,Eq)
 
@@ -16,11 +18,11 @@ data Reflexivity = ReflexicityRGB {-#UNPACK#-}!RGB
                  | ReflexivityCIE {-#UNPACK#-}!CIEXYZ
                  deriving (Show,Eq)
 
-data Material = Material { materialName        :: Text
+data Material = Material { materialName        :: MaterialName
                          , ambientReflexivity  :: Maybe Reflexivity
                          , diffuseReflexivity  :: Maybe Reflexivity
                          , specularReflexivity :: Maybe Reflexivity
-                         , emmisiveReflexivity :: Maybe Reflexivity
+                         , emissiveReflexivity  :: Maybe Reflexivity
                          , transmissionFilter  :: Maybe Reflexivity
                          , iluminationModel    :: Maybe IluminationModel
                          , disolveFactor       :: Maybe Float
@@ -28,6 +30,21 @@ data Material = Material { materialName        :: Text
                          , sharpness           :: Maybe Float
                          , opticalDensity      :: Maybe Float
                          } deriving (Show,Eq)
+
+-- | Construct a default material given a name
+defaultMaterial      :: MaterialName -> Material
+defaultMaterial name = Material { materialName        = name
+                                , ambientReflexivity  = Nothing
+                                , diffuseReflexivity  = Nothing
+                                , specularReflexivity = Nothing
+                                , emissiveReflexivity = Nothing
+                                , transmissionFilter  = Nothing
+                                , iluminationModel    = Nothing
+                                , disolveFactor       = Nothing
+                                , specularExponent    = Nothing
+                                , sharpness           = Nothing
+                                , opticalDensity      = Nothing
+                                }
 
 
 data IluminationModel = ColorOnly                     --  0
