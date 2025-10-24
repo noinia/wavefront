@@ -3,26 +3,14 @@ module Codec.Wavefront.Material.Type where
 import Data.Text ( Text )
 
 
-type MaterialName = Text
+--------------------------------------------------------------------------------
 
-data RGB = RGB {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
-  deriving (Show,Eq)
-
-data CIEXYZ = CIEXYZ {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
-  deriving (Show,Eq)
-
-
-data Reflexivity = ReflexicityRGB {-#UNPACK#-}!RGB
-                 | ReflexivitySpectral FilePath (Maybe Float)
-                          -- multiplication factor; default is one
-                 | ReflexivityCIE {-#UNPACK#-}!CIEXYZ
-                 deriving (Show,Eq)
-
+-- | Specification of a Material
 data Material = Material { materialName        :: MaterialName
                          , ambientReflexivity  :: Maybe Reflexivity
                          , diffuseReflexivity  :: Maybe Reflexivity
                          , specularReflexivity :: Maybe Reflexivity
-                         , emissiveReflexivity  :: Maybe Reflexivity
+                         , emissiveReflexivity :: Maybe Reflexivity
                          , transmissionFilter  :: Maybe Reflexivity
                          , iluminationModel    :: Maybe IluminationModel
                          , disolveFactor       :: Maybe Float
@@ -45,6 +33,25 @@ defaultMaterial name = Material { materialName        = name
                                 , sharpness           = Nothing
                                 , opticalDensity      = Nothing
                                 }
+
+--------------------------------------------------------------------------------
+
+type MaterialName = Text
+
+data RGB = RGB {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
+  deriving (Show,Eq)
+
+data CIEXYZ = CIEXYZ {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
+  deriving (Show,Eq)
+
+
+data Reflexivity = ReflexicityRGB {-#UNPACK#-}!RGB
+                 | ReflexivitySpectral FilePath (Maybe Float)
+                          -- multiplication factor; default is one
+                 | ReflexivityCIE {-#UNPACK#-}!CIEXYZ
+                 deriving (Show,Eq)
+
+
 
 
 data IluminationModel = ColorOnly                     --  0
@@ -76,3 +83,13 @@ data IluminationModel = ColorOnly                     --  0
 --   9          Transparency: Glass on
 --              Reflection: Ray trace off
 --  10          Casts shadows onto invisible surfaces
+
+
+
+--------------------------------------------------------------------------------
+
+-- -- | Possible Material specifications
+-- data MaterialSpec = NoMaterial
+--                   | ReferencedMaterial MaterialName
+--                   | AMaterial Material
+--                   deriving (Show,Eq)

@@ -39,11 +39,11 @@ data Ctxt = Ctxt {
     -- |Normals.
   , ctxtNormals :: SizedDList Normal
     -- |Points.
-  , ctxtPoints :: DList (Element Point)
+  , ctxtPoints :: DList (RawElement Point)
     -- |Lines.
-  , ctxtLines :: DList (Element Line)
+  , ctxtLines :: DList (RawElement Line)
     -- |Faces.
-  , ctxtFaces :: DList (Element Face)
+  , ctxtFaces :: DList (RawElement Face)
     -- |Current object.
   , ctxtCurrentObject :: Maybe Text
     -- |Current groups.
@@ -51,7 +51,7 @@ data Ctxt = Ctxt {
     -- |Current material.
   , ctxtCurrentMtl :: Maybe Text
     -- |Material libraries.
-  , ctxtMtlLibs :: DList Text
+  , ctxtMtlLibs :: DList FilePath
     -- |Current smoothing group.
   , ctxtCurrentSmoothingGroup :: Natural
   } deriving (Eq,Show)
@@ -108,8 +108,8 @@ lexer stream = execState (traverse_ consume stream) emptyCtxt
       TknUseMtl mtl -> modify $ \ctxt -> ctxt { ctxtCurrentMtl = Just mtl }
       TknS sg -> modify $ \ctxt -> ctxt { ctxtCurrentSmoothingGroup = sg }
 
--- Prepare to create a new 'Element' by retrieving its associated list.
-prepareElement :: (Ctxt -> DList (Element a)) -> State Ctxt (DList (Element a),a -> Element a)
+-- Prepare to create a new 'RawElement by retrieving its associated list.
+prepareElement :: (Ctxt -> DList (RawElement a)) -> State Ctxt (DList (RawElement a),a -> RawElement a)
 prepareElement field = do
   (aList,obj,grp,mtl,sg) <- gets $ (\ctxt -> (field ctxt,ctxtCurrentObject ctxt,ctxtCurrentGroups ctxt,ctxtCurrentMtl ctxt,ctxtCurrentSmoothingGroup ctxt))
   pure (aList,Element obj grp mtl sg)

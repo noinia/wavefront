@@ -22,7 +22,7 @@ import Data.Attoparsec.Text as AP
 import Data.Char ( isSpace )
 import Data.Maybe ( catMaybes )
 import Data.Text ( Text, unpack, strip )
-import qualified Data.Text as T ( empty )
+import qualified Data.Text as T ( empty , unpack )
 import Numeric.Natural ( Natural )
 import Prelude hiding ( lines )
 
@@ -38,7 +38,7 @@ data Token
   | TknF Face
   | TknG [Text]
   | TknO Text
-  | TknMtlLib [Text]
+  | TknMtlLib [FilePath]
   | TknUseMtl Text
   | TknS Natural
     deriving (Eq,Show)
@@ -181,8 +181,8 @@ object = skipSpace *> string "o " *> skipHSpace *> spacedName <* eol
 ----------------------------------------------------------------------------------------------------
 -- Material libraries ------------------------------------------------------------------------------
 
-mtllib :: Parser [Text]
-mtllib = skipSpace *> string "mtllib " *> skipHSpace *> name `sepBy1` skipHSpace <* eol
+mtllib :: Parser [FilePath]
+mtllib = skipSpace *> string "mtllib " *> skipHSpace *> fileName `sepBy1` skipHSpace <* eol
 
 ----------------------------------------------------------------------------------------------------
 -- Using materials ---------------------------------------------------------------------------------
@@ -220,6 +220,10 @@ eol = skipMany (satisfy isHorizontalSpace) *> (endOfLine <|> endOfInput)
 -- Parse a name (any character but space).
 name :: Parser Text
 name = takeWhile1 $ not . (\c -> isSpace c || c == '#')
+
+-- | Parse a filename (or something that looks like it)
+fileName :: Parser FilePath
+fileName = T.unpack <$> name
 
 spacedName :: Parser Text
 spacedName = strip <$> AP.takeWhile (flip notElem ("\n\r" :: String))

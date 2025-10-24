@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveTraversable  #-}
 -----------------------------------------------------------------------------
 -- |
 -- Copyright   : (C) 2015 Dimitri Sabadie
@@ -11,19 +12,46 @@
 
 module Codec.Wavefront.Element (
     -- * Element
-    Element(..)
+    ElementF(..)
+  , Element
+  , RawElement
   ) where
 
+import Data.Bifoldable
+import Data.Bitraversable
+import Data.Bifunctor
 import Data.Text ( Text )
 import Numeric.Natural ( Natural )
+import Codec.Wavefront.Material(Material)
+
+--------------------------------------------------------------------------------
 
 -- |An element holds a value along with the user-defined object’s name (if any), the associated
 -- groups, the used material and the smoothing group the element belongs to (if any). Those values
 -- can be used to sort the data per object or per group and to lookup materials.
-data Element a = Element {
+data ElementF material a = Element {
     elObject :: Maybe Text
   , elGroups :: [Text]
-  , elMtl :: Maybe Text
+  , elMtl :: material
   , elSmoothingGroup :: Natural
   , elValue :: a
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Functor,Foldable,Traversable)
+
+-- | An element whose material has not been dereferenced yet
+type RawElement = ElementF (Maybe Text)
+
+-- | An element whose material has been dereferenced.
+type Element = ElementF (Maybe Material)
+
+
+instance Bifunctor ElementF where
+  bimap f g (Element obj grs mtl smthgr val) = Element obj grs (f mtl) smthgr (g val)
+
+instance Bifoldable ElementF where
+  bifoldMap f g el = f (elMtl el) <> g (elValue el)
+
+instance Bitraversable ElementF where
+  bitraverse f g el = (\material val -> el { elMtl   = material
+                                           , elValue = val
+                                           }
+                      ) <$> f (elMtl el) <*> g (elValue el)

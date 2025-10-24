@@ -17,6 +17,7 @@ import Codec.Wavefront.Face
 import Codec.Wavefront.Lexer ( Ctxt(..) )
 import Codec.Wavefront.Line
 import Codec.Wavefront.Location
+import Codec.Wavefront.Material (MaterialLib, Material)
 import Codec.Wavefront.Normal
 import Codec.Wavefront.Point
 import Codec.Wavefront.SizedDList ( SizedDList)
@@ -25,7 +26,10 @@ import Data.DList ( DList )
 import Data.Text ( Text )
 import Data.Vector ( Vector, fromList )
 
-data WavefrontOBJ = WavefrontOBJ {
+--------------------------------------------------------------------------------
+
+-- | Prototype result for a WaveFrontOBJ File
+data WavefrontOBJF mtlLib material = WavefrontOBJ {
     -- |Locations.
     objLocations :: Vector Location
     -- |Texture coordinates.
@@ -33,16 +37,22 @@ data WavefrontOBJ = WavefrontOBJ {
     -- |Normals.
   , objNormals :: Vector Normal
     -- |Points.
-  , objPoints :: Vector (Element Point)
+  , objPoints :: Vector (ElementF material Point)
     -- |Lines.
-  , objLines :: Vector (Element Line)
+  , objLines :: Vector (ElementF material Line)
     -- |Faces.
-  , objFaces :: Vector (Element Face)
+  , objFaces :: Vector (ElementF material Face)
     -- |Material libraries.
-  , objMtlLibs :: Vector Text
+  , objMtlLibs :: Vector mtlLib
   } deriving (Eq,Show)
 
-ctxtToWavefrontOBJ :: Ctxt -> WavefrontOBJ
+-- | The content of a WavefrontOBJ file, in which the materials have been dereferenced.
+type WavefrontOBJ = WavefrontOBJF MaterialLib (Maybe Material)
+
+-- | A wavefront object whose material has not been dereferenced yet
+type RawWavefrontOBJ = WavefrontOBJF FilePath (Maybe Text)
+
+ctxtToWavefrontOBJ :: Ctxt -> RawWavefrontOBJ
 ctxtToWavefrontOBJ ctxt = WavefrontOBJ {
     objLocations = fromSizedDList (ctxtLocations ctxt)
   , objTexCoords = fromSizedDList (ctxtTexCoords ctxt)

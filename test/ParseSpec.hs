@@ -28,9 +28,14 @@ cubeFile = Paths.getDataFileName "cube.obj"
 
 spec :: Spec
 spec = describe "parsing tests" $ do
-         res <- runIO $ cubeFile >>= fromFile
-         it "it parses my cube file" $
+         res <- runIO $ cubeFile >>= rawFromFile
+         it "it parses my cube.obj file" $
            res `shouldSatisfy` isRight
+
+         res <- runIO $ cubeFile >>= fromFile
+         it "it parses my cube file including its materials" $
+           res `shouldSatisfy` isRight
+
          case res of
            Left msg  -> error msg
            Right obj -> do
@@ -40,6 +45,12 @@ spec = describe "parsing tests" $ do
              it ("faces have valid location indices" <> show numLocs) $ do
                for_ (objFaces obj) $ \el -> let face = elValue el in
                                      face `shouldSatisfy` all (`inRangeOf` numLocs) . faceIndices
+
+
+             it "face has a color" $
+               for_ (objFaces obj) $ \el ->
+                 faceColor el `shouldBe` Just (ReflexicityRGB (RGB 1 1 1))
+
          it "tokenizes a vertex correctly" $
            tokenize "v   1.00  0.00   0.99" `shouldBe` Right [TknV $ Location 1 0 0.99 1]
 
@@ -55,9 +66,10 @@ spec = describe "parsing tests" $ do
          mtlSpec
 
 
-
 myStr = "v  -1.01  0.00   0.99\nv   1.00  0.00   0.99"
 
+
+faceColor el = elMtl el >>= M.ambientReflexivity
 
 
 i `inRangeOf` n = 0 <= i && i < n
