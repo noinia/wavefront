@@ -1,3 +1,4 @@
+cabal-version:       3.4
 name:                wavefront
 version:             0.7.1.5
 synopsis:            Wavefront OBJ loader
@@ -6,7 +7,7 @@ description:         A Wavefront OBJ loader. Currently supports polygonal inform
                      to help!
 homepage:            https://github.com/phaazon/wavefront
 bug-reports:         https://github.com/phaazon/wavefront/issues
-license:             BSD3
+license:             BSD-3-Clause
 license-file:        LICENSE
 author:              Dimitri Sabadie <dimitri.sabadie@gmail.com>
 maintainer:          Dimitri Sabadie <dimitri.sabadie@gmail.com>
@@ -14,8 +15,9 @@ copyright:           Dimitri Sabadie
 
 category:            Codec
 build-type:          Simple
-extra-source-files:  CHANGELOG.md
-cabal-version:       3.4
+extra-doc-files:
+    README.md
+    CHANGELOG.md
 data-dir:            data
 
 source-repository head
