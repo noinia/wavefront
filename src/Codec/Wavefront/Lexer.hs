@@ -125,5 +125,6 @@ toAbsoluteIndex :: Int -> Int -> Int -> FaceIndex -> FaceIndex
 toAbsoluteIndex nLoc nTex nNorm (FaceIndex li ti ni) =
     FaceIndex (toAbs nLoc li) (toAbs nTex <$> ti) (toAbs nNorm <$> ni)
   where
-    toAbs n i | i >= 0    = i
-              | otherwise = n + i -- == n - abs i
+    toAbs n i | i >= 1    = i
+              | otherwise = 1 + n + i -- == n - abs i + 1
+                -- the 1 is due to the 1-indexing of the coordinates.

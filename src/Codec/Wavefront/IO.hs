@@ -39,8 +39,8 @@ fromFile fd = rawFromFile fd >>= \case
                     materialLibs <- traverse Material.fromFile materialFiles
                     pure $ sequence materialLibs >>= dereferenceMaterials obj
 
--- |Extract a raw 'WavefrontOBJ' from a Wavefront OBJ formatted
--- file. This only parses the gieven file, and does not dereference any materials.
+-- | Extract a raw 'WavefrontOBJ' from a Wavefront OBJ formatted
+-- file. This only parses the given file, and does not dereference any materials.
 rawFromFile :: (MonadIO m) => FilePath -> m (Either String RawWavefrontOBJ)
 rawFromFile fd = liftIO $ fmap fromText (T.readFile fd)
 

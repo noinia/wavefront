@@ -29,6 +29,10 @@ import Data.Vector ( Vector, fromList )
 --------------------------------------------------------------------------------
 
 -- | Prototype result for a WaveFrontOBJ File
+--
+-- Note according to the OBJ-spec, locations are "1-indexed"; i.e. in
+-- the range [1..n] rather than [0..n-1]. Hence, the indices in the
+-- Points, Lines, and Faces all refer to these 1-indexed points.
 data WavefrontOBJF mtlLib material = WavefrontOBJ {
     -- |Locations.
     objLocations :: Vector Location

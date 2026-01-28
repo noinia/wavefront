@@ -31,9 +31,22 @@ module Codec.Wavefront (
   , pattern Triangle
   , pattern Quad
     -- * Element
-  , Element(..)
+  , Element
+  , ElementF(..)
+  , RawElement
     -- * Object
-  , WavefrontOBJ(..)
+  , WavefrontOBJ
+  , WavefrontOBJF(..)
+  , RawWavefrontOBJ
+  -- * Material
+  , MaterialLib
+  , Material(..)
+  -- * Attributes of Materials
+  , MaterialName
+  , RGB(..)
+  , CIEXYZ(..)
+  , Reflexivity(..)
+  , IluminationModel(..)
     -- * Re-exports
   , module Codec.Wavefront.IO
   ) where
@@ -47,3 +60,4 @@ import Codec.Wavefront.Normal
 import Codec.Wavefront.Object
 import Codec.Wavefront.Point
 import Codec.Wavefront.TexCoord
+import Codec.Wavefront.Material

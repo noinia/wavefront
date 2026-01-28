@@ -66,13 +66,14 @@ spec = describe "parsing tests" $ do
          mtlSpec
 
 
+
+
 myStr = "v  -1.01  0.00   0.99\nv   1.00  0.00   0.99"
 
 
 faceColor el = elMtl el >>= M.ambientReflexivity
 
-
-i `inRangeOf` n = 0 <= i && i < n
+i `inRangeOf` n = 1 <= i && i <= n
 
 -- locIndices obj = foldMap (\el -> let  = elValue el
 --                                  in
