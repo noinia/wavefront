@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-2"></span><span class="hs-comment">-- |</span><span>
+</span><span id="line-3"></span><span class="hs-comment">-- Copyright   : (C) 2015 Dimitri Sabadie</span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- License     : BSD3</span><span>
+</span><span id="line-5"></span><span class="hs-comment">--</span><span>
+</span><span id="line-6"></span><span class="hs-comment">-- Maintainer  : Dimitri Sabadie &lt;dimitri.sabadie@gmail.com&gt;</span><span>
+</span><span id="line-7"></span><span class="hs-comment">-- Stability   : experimental</span><span>
+</span><span id="line-8"></span><span class="hs-comment">-- Portability : portable</span><span>
+</span><span id="line-9"></span><span class="hs-comment">--</span><span>
+</span><span id="line-10"></span><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-11"></span><span>
+</span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html"><span class="hs-identifier">Codec.Wavefront.Line</span></a></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-13"></span><span>
+</span><span id="line-14"></span><span class="hs-comment">-- |A line index is a pair of indices. @'LineIndex' vi vti@. @vi@ references the locations and @vti@</span><span>
+</span><span id="line-15"></span><span class="hs-comment">-- indexes the texture coordinates. If @vti == 'Nothing'@, then that 'LineIndex' doesn&#8217;t have</span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- texture coordinates associated with.</span><span>
+</span><span id="line-17"></span><span class="hs-keyword">data</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-18"></span><span>    </span><span id="lineLocIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Int
+</span><a href="Codec.Wavefront.Line.html#lineLocIndex"><span class="hs-identifier hs-var hs-var">lineLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-19"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineTexCoordIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Maybe Int
+</span><a href="Codec.Wavefront.Line.html#lineTexCoordIndex"><span class="hs-identifier hs-var hs-var">lineTexCoordIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span><span>
+</span><span id="line-20"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080129"><span id="local-6989586621679080135"><span class="annot"><span class="annottext">LineIndex -&gt; LineIndex -&gt; Bool
+(LineIndex -&gt; LineIndex -&gt; Bool)
+-&gt; (LineIndex -&gt; LineIndex -&gt; Bool) -&gt; Eq LineIndex
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: LineIndex -&gt; LineIndex -&gt; Bool
+== :: LineIndex -&gt; LineIndex -&gt; Bool
+$c/= :: LineIndex -&gt; LineIndex -&gt; Bool
+/= :: LineIndex -&gt; LineIndex -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080140"><span id="local-6989586621679080148"><span id="local-6989586621679080152"><span class="annot"><span class="annottext">Int -&gt; LineIndex -&gt; ShowS
+[LineIndex] -&gt; ShowS
+LineIndex -&gt; String
+(Int -&gt; LineIndex -&gt; ShowS)
+-&gt; (LineIndex -&gt; String)
+-&gt; ([LineIndex] -&gt; ShowS)
+-&gt; Show LineIndex
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; LineIndex -&gt; ShowS
+showsPrec :: Int -&gt; LineIndex -&gt; ShowS
+$cshow :: LineIndex -&gt; String
+show :: LineIndex -&gt; String
+$cshowList :: [LineIndex] -&gt; ShowS
+showList :: [LineIndex] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-21"></span><span>
+</span><span id="line-22"></span><span class="hs-comment">-- A line gathers two line indices accessible by pattern matching or 'lineIndexA' and 'lineIndexB'.</span><span>
+</span><span id="line-23"></span><span class="hs-keyword">data</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-24"></span><span>    </span><span id="lineIndexA"><span class="annot"><span class="annottext">Line -&gt; LineIndex
+</span><a href="Codec.Wavefront.Line.html#lineIndexA"><span class="hs-identifier hs-var hs-var">lineIndexA</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
+</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineIndexB"><span class="annot"><span class="annottext">Line -&gt; LineIndex
+</span><a href="Codec.Wavefront.Line.html#lineIndexB"><span class="hs-identifier hs-var hs-var">lineIndexB</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
+</span><span id="line-26"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080160"><span id="local-6989586621679080164"><span class="annot"><span class="annottext">Line -&gt; Line -&gt; Bool
+(Line -&gt; Line -&gt; Bool) -&gt; (Line -&gt; Line -&gt; Bool) -&gt; Eq Line
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: Line -&gt; Line -&gt; Bool
+== :: Line -&gt; Line -&gt; Bool
+$c/= :: Line -&gt; Line -&gt; Bool
+/= :: Line -&gt; Line -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080168"><span id="local-6989586621679080173"><span id="local-6989586621679080177"><span class="annot"><span class="annottext">Int -&gt; Line -&gt; ShowS
+[Line] -&gt; ShowS
+Line -&gt; String
+(Int -&gt; Line -&gt; ShowS)
+-&gt; (Line -&gt; String) -&gt; ([Line] -&gt; ShowS) -&gt; Show Line
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; Line -&gt; ShowS
+showsPrec :: Int -&gt; Line -&gt; ShowS
+$cshow :: Line -&gt; String
+show :: Line -&gt; String
+$cshowList :: [Line] -&gt; ShowS
+showList :: [Line] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-27"></span></pre></body></html>

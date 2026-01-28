@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE PatternSynonyms #-}</span><span>
+</span><span id="line-2"></span><span>
+</span><span id="line-3"></span><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- |</span><span>
+</span><span id="line-5"></span><span class="hs-comment">-- Copyright   : (C) 2015 Dimitri Sabadie</span><span>
+</span><span id="line-6"></span><span class="hs-comment">-- License     : BSD3</span><span>
+</span><span id="line-7"></span><span class="hs-comment">--</span><span>
+</span><span id="line-8"></span><span class="hs-comment">-- Maintainer  : Dimitri Sabadie &lt;dimitri.sabadie@gmail.com&gt;</span><span>
+</span><span id="line-9"></span><span class="hs-comment">-- Stability   : experimental</span><span>
+</span><span id="line-10"></span><span class="hs-comment">-- Portability : portable</span><span>
+</span><span id="line-11"></span><span class="hs-comment">--</span><span>
+</span><span id="line-12"></span><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-13"></span><span>
+</span><span id="line-14"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html"><span class="hs-identifier">Codec.Wavefront.Face</span></a></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- |A face index is a triplet of indices. @'FaceIndex' vi vti vni@ is a face that indexes the</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- locations with @vi@, the texture coordinates with @vti@ and the normals with @vni@. An index set</span><span>
+</span><span id="line-18"></span><span class="hs-comment">-- to 'Nothing' means /no information/. That is, if @vni == 'Nothing'@, then that 'FaceIndex'</span><span>
+</span><span id="line-19"></span><span class="hs-comment">-- doesn&#8217;t have a normal associated with.</span><span>
+</span><span id="line-20"></span><span class="hs-keyword">data</span><span> </span><span id="FaceIndex"><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-var">FaceIndex</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="FaceIndex"><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-var">FaceIndex</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-21"></span><span>    </span><span id="faceLocIndex"><span class="annot"><span class="annottext">FaceIndex -&gt; Int
+</span><a href="Codec.Wavefront.Face.html#faceLocIndex"><span class="hs-identifier hs-var hs-var">faceLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-22"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="faceTexCoordIndex"><span class="annot"><span class="annottext">FaceIndex -&gt; Maybe Int
+</span><a href="Codec.Wavefront.Face.html#faceTexCoordIndex"><span class="hs-identifier hs-var hs-var">faceTexCoordIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span><span>
+</span><span id="line-23"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="faceNorIndex"><span class="annot"><span class="annottext">FaceIndex -&gt; Maybe Int
+</span><a href="Codec.Wavefront.Face.html#faceNorIndex"><span class="hs-identifier hs-var hs-var">faceNorIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span><span>
+</span><span id="line-24"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080034"><span id="local-6989586621679080041"><span class="annot"><span class="annottext">FaceIndex -&gt; FaceIndex -&gt; Bool
+(FaceIndex -&gt; FaceIndex -&gt; Bool)
+-&gt; (FaceIndex -&gt; FaceIndex -&gt; Bool) -&gt; Eq FaceIndex
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: FaceIndex -&gt; FaceIndex -&gt; Bool
+== :: FaceIndex -&gt; FaceIndex -&gt; Bool
+$c/= :: FaceIndex -&gt; FaceIndex -&gt; Bool
+/= :: FaceIndex -&gt; FaceIndex -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080046"><span id="local-6989586621679080055"><span id="local-6989586621679080059"><span class="annot"><span class="annottext">Int -&gt; FaceIndex -&gt; ShowS
+[FaceIndex] -&gt; ShowS
+FaceIndex -&gt; String
+(Int -&gt; FaceIndex -&gt; ShowS)
+-&gt; (FaceIndex -&gt; String)
+-&gt; ([FaceIndex] -&gt; ShowS)
+-&gt; Show FaceIndex
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; FaceIndex -&gt; ShowS
+showsPrec :: Int -&gt; FaceIndex -&gt; ShowS
+$cshow :: FaceIndex -&gt; String
+show :: FaceIndex -&gt; String
+$cshowList :: [FaceIndex] -&gt; ShowS
+showList :: [FaceIndex] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-25"></span><span>
+</span><span id="line-26"></span><span class="annot"><span class="hs-comment">-- |A face gathers several 'FaceIndex' to build up faces. It has a least three vertices</span></span><span>
+</span><span id="line-27"></span><span class="hs-keyword">data</span><span> </span><span id="Face"><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-var">Face</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Face"><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-var">Face</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080065"><span id="local-6989586621679080072"><span class="annot"><span class="annottext">Face -&gt; Face -&gt; Bool
+(Face -&gt; Face -&gt; Bool) -&gt; (Face -&gt; Face -&gt; Bool) -&gt; Eq Face
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: Face -&gt; Face -&gt; Bool
+== :: Face -&gt; Face -&gt; Bool
+$c/= :: Face -&gt; Face -&gt; Bool
+/= :: Face -&gt; Face -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080076"><span id="local-6989586621679080084"><span id="local-6989586621679080088"><span class="annot"><span class="annottext">Int -&gt; Face -&gt; ShowS
+[Face] -&gt; ShowS
+Face -&gt; String
+(Int -&gt; Face -&gt; ShowS)
+-&gt; (Face -&gt; String) -&gt; ([Face] -&gt; ShowS) -&gt; Show Face
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; Face -&gt; ShowS
+showsPrec :: Int -&gt; Face -&gt; ShowS
+$cshow :: Face -&gt; String
+show :: Face -&gt; String
+$cshowList :: [Face] -&gt; ShowS
+showList :: [Face] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-28"></span><span>
+</span><span id="line-29"></span><span class="hs-keyword">pattern</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Triangle"><span class="hs-identifier hs-type">Triangle</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-type">Face</span></a></span><span>
+</span><span id="line-30"></span><span class="hs-keyword">pattern</span><span> </span><span id="Triangle"><span id="%24bTriangle"><span id="%24mTriangle"><span class="annot"><span class="annottext">$bTriangle :: FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; Face
+$mTriangle :: forall {r}.
+Face
+-&gt; (FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; r) -&gt; ((# #) -&gt; r) -&gt; r
+</span><a href="Codec.Wavefront.Face.html#Triangle"><span class="hs-identifier hs-var hs-var hs-var">Triangle</span></a></span></span></span></span><span> </span><span class="annot"><a href="#local-6989586621679080093"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679080094"><span class="hs-identifier hs-type">b</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679080095"><span class="hs-identifier hs-type">c</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-type">Face</span></a></span><span> </span><span id="local-6989586621679080093"><span class="annot"><a href="#local-6989586621679080093"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span id="local-6989586621679080094"><span class="annot"><a href="#local-6989586621679080094"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span id="local-6989586621679080095"><span class="annot"><a href="#local-6989586621679080095"><span class="hs-identifier hs-var">c</span></a></span></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-31"></span><span>
+</span><span id="line-32"></span><span class="hs-keyword">pattern</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Quad"><span class="hs-identifier hs-type">Quad</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#FaceIndex"><span class="hs-identifier hs-type">FaceIndex</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-type">Face</span></a></span><span>
+</span><span id="line-33"></span><span class="hs-keyword">pattern</span><span> </span><span id="Quad"><span id="%24bQuad"><span id="%24mQuad"><span class="annot"><span class="annottext">$bQuad :: FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; Face
+$mQuad :: forall {r}.
+Face
+-&gt; (FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; FaceIndex -&gt; r)
+-&gt; ((# #) -&gt; r)
+-&gt; r
+</span><a href="Codec.Wavefront.Face.html#Quad"><span class="hs-identifier hs-var hs-var hs-var">Quad</span></a></span></span></span></span><span> </span><span class="annot"><a href="#local-6989586621679080099"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679080100"><span class="hs-identifier hs-type">b</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679080101"><span class="hs-identifier hs-type">c</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679080102"><span class="hs-identifier hs-type">d</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Codec.Wavefront.Face.html#Face"><span class="hs-identifier hs-type">Face</span></a></span><span> </span><span id="local-6989586621679080099"><span class="annot"><a href="#local-6989586621679080099"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span id="local-6989586621679080100"><span class="annot"><a href="#local-6989586621679080100"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span id="local-6989586621679080101"><span class="annot"><a href="#local-6989586621679080101"><span class="hs-identifier hs-var">c</span></a></span></span><span> </span><span class="hs-special">[</span><span id="local-6989586621679080102"><span class="annot"><a href="#local-6989586621679080102"><span class="hs-identifier hs-var">d</span></a></span></span><span class="hs-special">]</span><span>
+</span><span id="line-34"></span></pre></body></html>

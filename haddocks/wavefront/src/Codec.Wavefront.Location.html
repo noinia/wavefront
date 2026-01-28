@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-2"></span><span class="hs-comment">-- |</span><span>
+</span><span id="line-3"></span><span class="hs-comment">-- Copyright   : (C) 2015 Dimitri Sabadie</span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- License     : BSD3</span><span>
+</span><span id="line-5"></span><span class="hs-comment">--</span><span>
+</span><span id="line-6"></span><span class="hs-comment">-- Maintainer  : Dimitri Sabadie &lt;dimitri.sabadie@gmail.com&gt;</span><span>
+</span><span id="line-7"></span><span class="hs-comment">-- Stability   : experimental</span><span>
+</span><span id="line-8"></span><span class="hs-comment">-- Portability : portable</span><span>
+</span><span id="line-9"></span><span class="hs-comment">--</span><span>
+</span><span id="line-10"></span><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><span id="line-11"></span><span>
+</span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Location.html"><span class="hs-identifier">Codec.Wavefront.Location</span></a></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-13"></span><span>
+</span><span id="line-14"></span><span class="hs-comment">-- |A location is a 4-floating vector. You can access to its components by pattern matching on them:</span><span>
+</span><span id="line-15"></span><span class="hs-comment">--</span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- @</span><span>
+</span><span id="line-17"></span><span class="hs-comment">--   let Location x y z w = Location 1 2 3 4</span><span>
+</span><span id="line-18"></span><span class="hs-comment">-- @</span><span>
+</span><span id="line-19"></span><span class="hs-comment">--</span><span>
+</span><span id="line-20"></span><span class="hs-comment">-- That type is strict and unboxed.</span><span>
+</span><span id="line-21"></span><span class="hs-keyword">data</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-22"></span><span>    </span><span id="locX"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locX"><span class="hs-identifier hs-var hs-var">locX</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
+</span><span id="line-23"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locY"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locY"><span class="hs-identifier hs-var hs-var">locY</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
+</span><span id="line-24"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locZ"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locZ"><span class="hs-identifier hs-var hs-var">locZ</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
+</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locW"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locW"><span class="hs-identifier hs-var hs-var">locW</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
+</span><span id="line-26"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080203"><span id="local-6989586621679080210"><span class="annot"><span class="annottext">Location -&gt; Location -&gt; Bool
+(Location -&gt; Location -&gt; Bool)
+-&gt; (Location -&gt; Location -&gt; Bool) -&gt; Eq Location
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: Location -&gt; Location -&gt; Bool
+== :: Location -&gt; Location -&gt; Bool
+$c/= :: Location -&gt; Location -&gt; Bool
+/= :: Location -&gt; Location -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080215"><span id="local-6989586621679080224"><span id="local-6989586621679080228"><span class="annot"><span class="annottext">Int -&gt; Location -&gt; ShowS
+[Location] -&gt; ShowS
+Location -&gt; String
+(Int -&gt; Location -&gt; ShowS)
+-&gt; (Location -&gt; String) -&gt; ([Location] -&gt; ShowS) -&gt; Show Location
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; Location -&gt; ShowS
+showsPrec :: Int -&gt; Location -&gt; ShowS
+$cshow :: Location -&gt; String
+show :: Location -&gt; String
+$cshowList :: [Location] -&gt; ShowS
+showList :: [Location] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-27"></span></pre></body></html>
