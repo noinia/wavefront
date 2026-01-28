@@ -20,12 +20,13 @@ extra-doc-files:
     CHANGELOG.md
 data-dir:            data
 
+tested-with:
+    GHC == 9.12.2
+  , GHC == 9.10.1
+
 source-repository head
   type:     git
   location: git://github.com/phaazon/wavefront.git
-
-tested-with:
-  , GHC == 9.12.2
 
 library
   ghc-options:         -W -Wall
