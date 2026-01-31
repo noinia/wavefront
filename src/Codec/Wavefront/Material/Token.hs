@@ -70,7 +70,7 @@ ambient = skipSpace *> string "Ka " *> reflexivity <* eol'
 reflexivity :: Parser Reflexivity
 reflexivity = choice [                        ReflexicityRGB <$> rgb
                      , string "spectral " *> (ReflexivitySpectral <$>
-                                               filePath <*> option Nothing (Just <$> float))
+                                               filePath <*> optional float)
                      , string "xyz "      *> (ReflexivityCIE <$> cie)
                      ]
 
@@ -127,4 +127,5 @@ opticalDensity :: Parser Float
 opticalDensity = skipSpace *> string "Ni " *> float <* eol'
 
 -- | Comment or end of line
+eol' :: Parser ()
 eol' = comment <|> eol
