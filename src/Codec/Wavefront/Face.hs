@@ -13,6 +13,8 @@
 
 module Codec.Wavefront.Face where
 
+import GHC.Generics (Generic)
+
 -- |A face index is a triplet of indices. @'FaceIndex' vi vti vni@ is a face that indexes the
 -- locations with @vi@, the texture coordinates with @vti@ and the normals with @vni@. An index set
 -- to 'Nothing' means /no information/. That is, if @vni == 'Nothing'@, then that 'FaceIndex'
@@ -21,10 +23,11 @@ data FaceIndex = FaceIndex {
     faceLocIndex :: {-# UNPACK #-} !Int
   , faceTexCoordIndex :: !(Maybe Int)
   , faceNorIndex :: !(Maybe Int)
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)
 
 -- |A face gathers several 'FaceIndex' to build up faces. It has a least three vertices
-data Face = Face FaceIndex FaceIndex FaceIndex [FaceIndex] deriving (Eq,Show)
+data Face = Face FaceIndex FaceIndex FaceIndex [FaceIndex]
+  deriving (Eq,Show,Generic)
 
 pattern Triangle :: FaceIndex -> FaceIndex -> FaceIndex -> Face
 pattern Triangle a b c = Face a b c []

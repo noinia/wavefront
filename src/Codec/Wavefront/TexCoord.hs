@@ -11,6 +11,8 @@
 
 module Codec.Wavefront.TexCoord where
 
+import GHC.Generics (Generic)
+
 -- |A texture coordinate is a 3D-floating vector. You can access to its components by pattern
 -- matching on them:
 --
@@ -18,10 +20,10 @@ module Codec.Wavefront.TexCoord where
 --   let TexCoord r s t = TexCoord 0.1 0.2 0.3
 -- @
 --
--- That type is strcit and unboxed.
+-- That type is strict and unboxed.
 data TexCoord = TexCoord {
     texcoordR :: {-# UNPACK #-} !Float
   , texcoordS :: {-# UNPACK #-} !Float
   , texcoordT :: {-# UNPACK #-} !Float
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)
 

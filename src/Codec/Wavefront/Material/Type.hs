@@ -1,6 +1,7 @@
 module Codec.Wavefront.Material.Type where
 
 import Data.Text ( Text )
+import GHC.Generics (Generic)
 
 
 --------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ data Material = Material { materialName        :: MaterialName
                          , specularExponent    :: Maybe Float
                          , sharpness           :: Maybe Float
                          , opticalDensity      :: Maybe Float
-                         } deriving (Show,Eq)
+                         } deriving (Show,Eq,Generic)
 
 -- | Construct a default material given a name
 defaultMaterial      :: MaterialName -> Material
@@ -39,17 +40,17 @@ defaultMaterial name = Material { materialName        = name
 type MaterialName = Text
 
 data RGB = RGB {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
-  deriving (Show,Eq)
+  deriving (Show,Eq,Generic)
 
 data CIEXYZ = CIEXYZ {-#UNPACK#-}!Float {-#UNPACK#-}!Float {-#UNPACK#-}!Float
-  deriving (Show,Eq)
+  deriving (Show,Eq,Generic)
 
 
 data Reflexivity = ReflexicityRGB {-#UNPACK#-}!RGB
                  | ReflexivitySpectral FilePath (Maybe Float)
                           -- multiplication factor; default is one
                  | ReflexivityCIE {-#UNPACK#-}!CIEXYZ
-                 deriving (Show,Eq)
+                 deriving (Show,Eq,Generic)
 
 
 
@@ -65,7 +66,7 @@ data IluminationModel = ColorOnly                     --  0
                       | ReflectionOnly                --  8
                       | GlassOnly                     -- 9
                       | CastsShadows                  -- 10
-                      deriving (Show,Eq,Enum,Bounded)
+                      deriving (Show,Eq,Enum,Bounded,Generic)
 
 
 --  0           Color on and Ambient off

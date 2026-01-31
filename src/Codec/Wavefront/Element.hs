@@ -22,7 +22,8 @@ import Data.Bitraversable
 import Data.Bifunctor
 import Data.Text ( Text )
 import Numeric.Natural ( Natural )
-import Codec.Wavefront.Material(Material)
+import Codec.Wavefront.Material (Material)
+import GHC.Generics (Generic)
 
 --------------------------------------------------------------------------------
 
@@ -35,7 +36,7 @@ data ElementF material a = Element {
   , elMtl :: material
   , elSmoothingGroup :: Natural
   , elValue :: a
-  } deriving (Eq,Show,Functor,Foldable,Traversable)
+  } deriving (Eq,Show,Functor,Foldable,Traversable,Generic)
 
 -- | An element whose material has not been dereferenced yet
 type RawElement = ElementF (Maybe Text)

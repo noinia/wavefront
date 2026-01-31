@@ -59,6 +59,8 @@ library
 
 
   default-extensions:  OverloadedStrings
+                     , DeriveGeneric
+
 
   build-depends:       base         >= 4.8  && < 4.22
                      , attoparsec   >= 0.13 && < 0.15

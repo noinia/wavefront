@@ -11,6 +11,8 @@
 
 module Codec.Wavefront.Location where
 
+import GHC.Generics (Generic)
+
 -- |A location is a 4-floating vector. You can access to its components by pattern matching on them:
 --
 -- @
@@ -23,4 +25,4 @@ data Location = Location {
   , locY :: {-# UNPACK #-} !Float
   , locZ :: {-# UNPACK #-} !Float
   , locW :: {-# UNPACK #-} !Float
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)

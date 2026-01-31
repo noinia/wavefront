@@ -25,6 +25,8 @@ import Codec.Wavefront.TexCoord
 import Data.DList ( DList )
 import Data.Text ( Text )
 import Data.Vector ( Vector, fromList )
+import qualified Data.Vector as Vector
+import GHC.Generics (Generic)
 
 --------------------------------------------------------------------------------
 
@@ -48,7 +50,7 @@ data WavefrontOBJF mtlLib material = WavefrontOBJ {
   , objFaces :: Vector (ElementF material Face)
     -- |Material libraries.
   , objMtlLibs :: Vector mtlLib
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)
 
 -- | The content of a WavefrontOBJ file, in which the materials have been dereferenced.
 type WavefrontOBJ = WavefrontOBJF MaterialLib (Maybe Material)
@@ -72,3 +74,15 @@ fromDList = fromList . toList
 
 fromSizedDList :: SizedDList a -> Vector a
 fromSizedDList = fromList . toList
+
+
+-- | Creates an empty wavefrontOBJ; i.e. without locations, points etc.
+emptyWavefrontOBJ :: WavefrontOBJF mtlLib material
+emptyWavefrontOBJ = WavefrontOBJ { objLocations = Vector.empty
+                                 , objTexCoords = Vector.empty
+                                 , objNormals   = Vector.empty
+                                 , objPoints    = Vector.empty
+                                 , objLines     = Vector.empty
+                                 , objFaces     = Vector.empty
+                                 , objMtlLibs   = Vector.empty
+                                 }

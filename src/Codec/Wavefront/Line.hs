@@ -11,16 +11,18 @@
 
 module Codec.Wavefront.Line where
 
+import GHC.Generics (Generic)
+
 -- |A line index is a pair of indices. @'LineIndex' vi vti@. @vi@ references the locations and @vti@
 -- indexes the texture coordinates. If @vti == 'Nothing'@, then that 'LineIndex' doesn’t have
 -- texture coordinates associated with.
 data LineIndex = LineIndex {
     lineLocIndex :: {-# UNPACK #-} !Int
   , lineTexCoordIndex :: !(Maybe Int)
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)
 
 -- A line gathers two line indices accessible by pattern matching or 'lineIndexA' and 'lineIndexB'.
 data Line = Line {
     lineIndexA :: LineIndex
   , lineIndexB :: LineIndex
-  } deriving (Eq,Show)
+  } deriving (Eq,Show,Generic)
