@@ -4,11 +4,7 @@ module Codec.Wavefront.Material.Token where
 import           Control.Applicative
 import           Codec.Wavefront.Material.Type (Reflexivity(..), IluminationModel(..), RGB(..), CIEXYZ(..))
 import           Data.Attoparsec.Text as AP
-import           Data.Char ( isSpace )
-import           Data.Maybe ( catMaybes )
-import           Data.Text ( Text, unpack, strip )
-import qualified Data.Text as T ( empty )
-import           Numeric.Natural ( Natural )
+import           Data.Text ( Text )
 import           Prelude hiding ( lines )
 import           Codec.Wavefront.Token ( name, comment, float, eol, skipHSpace, untilEnd
                                        , cleanupTokens, analyseResult
