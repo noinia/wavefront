@@ -28,7 +28,7 @@
 </span><a href="Codec.Wavefront.TexCoord.html#texcoordS"><span class="hs-identifier hs-var hs-var">texcoordS</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
 </span><span id="line-27"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="texcoordT"><span class="annot"><span class="annottext">TexCoord -&gt; Float
 </span><a href="Codec.Wavefront.TexCoord.html#texcoordT"><span class="hs-identifier hs-var hs-var">texcoordT</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
-</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679091719"><span id="local-6989586621679091725"><span class="annot"><span class="annottext">TexCoord -&gt; TexCoord -&gt; Bool
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679092257"><span id="local-6989586621679092263"><span class="annot"><span class="annottext">TexCoord -&gt; TexCoord -&gt; Bool
 (TexCoord -&gt; TexCoord -&gt; Bool)
 -&gt; (TexCoord -&gt; TexCoord -&gt; Bool) -&gt; Eq TexCoord
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -36,7 +36,7 @@ $c== :: TexCoord -&gt; TexCoord -&gt; Bool
 == :: TexCoord -&gt; TexCoord -&gt; Bool
 $c/= :: TexCoord -&gt; TexCoord -&gt; Bool
 /= :: TexCoord -&gt; TexCoord -&gt; Bool
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091730"><span id="local-6989586621679091738"><span id="local-6989586621679091742"><span class="annot"><span class="annottext">Int -&gt; TexCoord -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679092268"><span id="local-6989586621679092276"><span id="local-6989586621679092280"><span class="annot"><span class="annottext">Int -&gt; TexCoord -&gt; ShowS
 [TexCoord] -&gt; ShowS
 TexCoord -&gt; String
 (Int -&gt; TexCoord -&gt; ShowS)
@@ -49,7 +49,7 @@ $cshow :: TexCoord -&gt; String
 show :: TexCoord -&gt; String
 $cshowList :: [TexCoord] -&gt; ShowS
 showList :: [TexCoord] -&gt; ShowS
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091747"><span id="local-6989586621679091749"><span class="annot"><span class="annottext">(forall x. TexCoord -&gt; Rep TexCoord x)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679092285"><span id="local-6989586621679092287"><span class="annot"><span class="annottext">(forall x. TexCoord -&gt; Rep TexCoord x)
 -&gt; (forall x. Rep TexCoord x -&gt; TexCoord) -&gt; Generic TexCoord
 forall x. Rep TexCoord x -&gt; TexCoord
 forall x. TexCoord -&gt; Rep TexCoord x
