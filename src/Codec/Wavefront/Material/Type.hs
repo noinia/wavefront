@@ -35,6 +35,7 @@ defaultMaterial name = Material { materialName        = name
                                 , opticalDensity      = Nothing
                                 }
 
+
 --------------------------------------------------------------------------------
 
 type MaterialName = Text

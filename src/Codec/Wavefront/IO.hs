@@ -12,12 +12,11 @@
 
 module Codec.Wavefront.IO where
 
-import           Data.Foldable (fold)
 import           Data.Bitraversable
 import           Codec.Wavefront.Lexer ( lexer )
 import           Codec.Wavefront.Object
 import           Codec.Wavefront.Element
-import           Codec.Wavefront.Material ( MaterialLib )
+import           Codec.Wavefront.Material ( MaterialLib , materials )
 import           Codec.Wavefront.Token ( tokenize )
 import           Control.Monad.IO.Class ( MonadIO(..) )
 import           Data.Text (Text)
@@ -67,7 +66,7 @@ dereferenceMaterials obj materialLibs = do
                , objMtlLibs   = materialLibs
                }
   where
-    materialLib = fold materialLibs
+    materialLib = foldMap materials materialLibs
     dereference :: RawElement a -> Either String (Element a)
     dereference = firstA $ traverse $ \name -> case materialLib Map.!? name of
       Nothing -> Left $ "Material " <> show name <> " not found."

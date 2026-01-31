@@ -15,6 +15,7 @@ module Codec.Wavefront.Element (
     ElementF(..)
   , Element
   , RawElement
+  , toRawElement
   ) where
 
 import Data.Bifoldable
@@ -22,7 +23,7 @@ import Data.Bitraversable
 import Data.Bifunctor
 import Data.Text ( Text )
 import Numeric.Natural ( Natural )
-import Codec.Wavefront.Material (Material)
+import Codec.Wavefront.Material (Material, materialName)
 import GHC.Generics (Generic)
 
 --------------------------------------------------------------------------------
@@ -56,3 +57,7 @@ instance Bitraversable ElementF where
                                            , elValue = val
                                            }
                       ) <$> f (elMtl el) <*> g (elValue el)
+
+-- | convert an element into a raw element
+toRawElement   :: Element a -> RawElement a
+toRawElement e = e { elMtl = fmap materialName (elMtl e) }

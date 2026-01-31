@@ -76,6 +76,17 @@ fromSizedDList :: SizedDList a -> Vector a
 fromSizedDList = fromList . toList
 
 
+
+-- | Convert a wavefront OBJ object into a raw one, i.e. one that
+-- references its materials. The first argument is used to determine the path
+-- to the materialLib
+toRawWavefrontObj          :: (MaterialLib -> FilePath) -> WavefrontOBJ -> RawWavefrontOBJ
+toRawWavefrontObj toFp obj = obj { objPoints    = toRawElement <$> objPoints obj
+                                 , objLines     = toRawElement <$> objLines obj
+                                 , objFaces     = toRawElement <$> objFaces obj
+                                 , objMtlLibs   = toFp         <$> objMtlLibs obj
+                                 }
+
 -- | Creates an empty wavefrontOBJ; i.e. without locations, points etc.
 emptyWavefrontOBJ :: WavefrontOBJF mtlLib material
 emptyWavefrontOBJ = WavefrontOBJ { objLocations = Vector.empty

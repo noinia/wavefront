@@ -1,5 +1,5 @@
 module Codec.Wavefront.Material
-  ( MaterialLib
+  ( MaterialLib(..)
   , fromFile
   , fromText
   , Material(..)
@@ -17,16 +17,20 @@ import           Control.Monad.IO.Class ( MonadIO(..) )
 import           Data.Text (Text)
 import qualified Data.Text.IO as T ( readFile )
 import qualified Data.Map as Map
+import           GHC.Generics (Generic)
 
 --------------------------------------------------------------------------------
 
 -- | A MaterialLib
-type MaterialLib = Map.Map MaterialName Material
+data MaterialLib = MaterialLib { materialLibPath :: FilePath
+                               , materials       :: Map.Map MaterialName Material
+                               }
+                   deriving (Show,Eq,Generic)
 
 -- | Extract Materials from a Wavefront MTL formatted file.
 fromFile    :: (MonadIO m) => FilePath -> m (Either String MaterialLib)
-fromFile fd = liftIO $ fmap fromText (T.readFile fd)
+fromFile fp = liftIO $ fmap (fmap (MaterialLib fp) . fromText) (T.readFile fp)
 
 -- | Extract Materials from a Wavefront MTL formatted text.
-fromText :: Text -> Either String MaterialLib
+fromText :: Text -> Either String (Map.Map MaterialName Material)
 fromText = fmap lexer . tokenize
