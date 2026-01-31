@@ -1,34 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE OverloadedStrings #-}</span><span>
 </span><span id="line-2"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Token.html"><span class="hs-identifier">Codec.Wavefront.Material.Token</span></a></span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-3"></span><span>
-</span><span id="line-4"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Control.Applicative</span></span><span>
+</span><span id="line-4"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/Control.Applicative.html"><span class="hs-identifier">Control.Applicative</span></a></span><span>
 </span><span id="line-5"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html"><span class="hs-identifier">Codec.Wavefront.Material.Type</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier">Reflexivity</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#IluminationModel"><span class="hs-identifier">IluminationModel</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#RGB"><span class="hs-identifier">RGB</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#CIEXYZ"><span class="hs-identifier">CIEXYZ</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-6"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html"><span class="hs-identifier">Data.Attoparsec.Text</span></a></span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">AP</span></span><span>
-</span><span id="line-7"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Data.Char</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">isSpace</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-8"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Data.Maybe</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">catMaybes</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-9"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Data.Text</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">Text</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">unpack</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">strip</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-10"></span><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="annot"><span class="hs-identifier">Data.Text</span></span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">T</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">empty</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-11"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Numeric.Natural</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">Natural</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-12"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Prelude</span></span><span> </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-identifier">lines</span></span><span> </span><span class="hs-special">)</span><span>
-</span><span id="line-13"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="Codec.Wavefront.Token.html"><span class="hs-identifier">Codec.Wavefront.Token</span></a></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#name"><span class="hs-identifier">name</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#comment"><span class="hs-identifier">comment</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier">float</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#eol"><span class="hs-identifier">eol</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#skipHSpace"><span class="hs-identifier">skipHSpace</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#untilEnd"><span class="hs-identifier">untilEnd</span></a></span><span>
-</span><span id="line-14"></span><span>                                       </span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#cleanupTokens"><span class="hs-identifier">cleanupTokens</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#analyseResult"><span class="hs-identifier">analyseResult</span></a></span><span>
-</span><span id="line-15"></span><span>                                       </span><span class="hs-special">)</span><span>
-</span><span id="line-16"></span><span>
-</span><span id="line-17"></span><span class="hs-comment">--------------------------------------------------------------------------------</span><span>
-</span><span id="line-18"></span><span>
-</span><span id="line-19"></span><span>
-</span><span id="line-20"></span><span class="hs-keyword">data</span><span> </span><span id="Token"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#Token"><span class="hs-identifier hs-var">Token</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="TknName"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknName"><span class="hs-identifier hs-var">TknName</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span>
-</span><span id="line-21"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKa"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKa"><span class="hs-identifier hs-var">TknKa</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-22"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKd"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKd"><span class="hs-identifier hs-var">TknKd</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-23"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKe"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKe"><span class="hs-identifier hs-var">TknKe</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-24"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKs"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKs"><span class="hs-identifier hs-var">TknKs</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-25"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknTf"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknTf"><span class="hs-identifier hs-var">TknTf</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-26"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknIm"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknIm"><span class="hs-identifier hs-var">TknIm</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#IluminationModel"><span class="hs-identifier hs-type">IluminationModel</span></a></span><span>
-</span><span id="line-27"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknD"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknD"><span class="hs-identifier hs-var">TknD</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-28"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknSn"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknSn"><span class="hs-identifier hs-var">TknSn</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-29"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknS"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknS"><span class="hs-identifier hs-var">TknS</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-30"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknDensity"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknDensity"><span class="hs-identifier hs-var">TknDensity</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-31"></span><span>           </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679081643"><span id="local-6989586621679081671"><span id="local-6989586621679081675"><span class="annot"><span class="annottext">Int -&gt; Token -&gt; ShowS
+</span><span id="line-7"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/text-2.1.2-ecdb/src/Data.Text.html"><span class="hs-identifier">Data.Text</span></a></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/text-2.1.2-ecdb/src/Data.Text.Internal.html#Text"><span class="hs-identifier">Text</span></a></span><span> </span><span class="hs-special">)</span><span>
+</span><span id="line-8"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/Prelude.html"><span class="hs-identifier">Prelude</span></a></span><span> </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.OldList.html#lines"><span class="hs-identifier">lines</span></a></span><span> </span><span class="hs-special">)</span><span>
+</span><span id="line-9"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="Codec.Wavefront.Token.html"><span class="hs-identifier">Codec.Wavefront.Token</span></a></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#name"><span class="hs-identifier">name</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#comment"><span class="hs-identifier">comment</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier">float</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#eol"><span class="hs-identifier">eol</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#skipHSpace"><span class="hs-identifier">skipHSpace</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#untilEnd"><span class="hs-identifier">untilEnd</span></a></span><span>
+</span><span id="line-10"></span><span>                                       </span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#cleanupTokens"><span class="hs-identifier">cleanupTokens</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Codec.Wavefront.Token.html#analyseResult"><span class="hs-identifier">analyseResult</span></a></span><span>
+</span><span id="line-11"></span><span>                                       </span><span class="hs-special">)</span><span>
+</span><span id="line-12"></span><span>
+</span><span id="line-13"></span><span class="hs-comment">--------------------------------------------------------------------------------</span><span>
+</span><span id="line-14"></span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-keyword">data</span><span> </span><span id="Token"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#Token"><span class="hs-identifier hs-var">Token</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="TknName"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknName"><span class="hs-identifier hs-var">TknName</span></a></span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/text-2.1.2-ecdb/src/Data.Text.Internal.html#Text"><span class="hs-identifier hs-type">Text</span></a></span><span>
+</span><span id="line-17"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKa"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKa"><span class="hs-identifier hs-var">TknKa</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-18"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKd"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKd"><span class="hs-identifier hs-var">TknKd</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-19"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKe"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKe"><span class="hs-identifier hs-var">TknKe</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-20"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknKs"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknKs"><span class="hs-identifier hs-var">TknKs</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-21"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknTf"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknTf"><span class="hs-identifier hs-var">TknTf</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-22"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknIm"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknIm"><span class="hs-identifier hs-var">TknIm</span></a></span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#IluminationModel"><span class="hs-identifier hs-type">IluminationModel</span></a></span><span>
+</span><span id="line-23"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknD"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknD"><span class="hs-identifier hs-var">TknD</span></a></span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-24"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknSn"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknSn"><span class="hs-identifier hs-var">TknSn</span></a></span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-25"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknS"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknS"><span class="hs-identifier hs-var">TknS</span></a></span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-26"></span><span>           </span><span class="hs-glyph">|</span><span> </span><span id="TknDensity"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TknDensity"><span class="hs-identifier hs-var">TknDensity</span></a></span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-27"></span><span>           </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679092498"><span id="local-6989586621679092526"><span id="local-6989586621679092530"><span class="annot"><span class="annottext">Int -&gt; Token -&gt; ShowS
 [Token] -&gt; ShowS
 Token -&gt; String
 (Int -&gt; Token -&gt; ShowS)
@@ -41,564 +37,564 @@ $cshow :: Token -&gt; String
 show :: Token -&gt; String
 $cshowList :: [Token] -&gt; ShowS
 showList :: [Token] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679081680"><span id="local-6989586621679081700"><span class="annot"><span class="annottext">Token -&gt; Token -&gt; Bool
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679092535"><span id="local-6989586621679092555"><span class="annot"><span class="annottext">Token -&gt; Token -&gt; Bool
 (Token -&gt; Token -&gt; Bool) -&gt; (Token -&gt; Token -&gt; Bool) -&gt; Eq Token
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Token -&gt; Token -&gt; Bool
 == :: Token -&gt; Token -&gt; Bool
 $c/= :: Token -&gt; Token -&gt; Bool
 /= :: Token -&gt; Token -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">)</span><span>
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-28"></span><span>
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span><span class="annot"><span class="hs-comment">-- |A stream of 'Token'.</span></span><span>
+</span><span id="line-31"></span><span class="hs-keyword">type</span><span> </span><span id="TokenStream"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TokenStream"><span class="hs-identifier hs-var">TokenStream</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#Token"><span class="hs-identifier hs-type">Token</span></a></span><span class="hs-special">]</span><span>
 </span><span id="line-32"></span><span>
-</span><span id="line-33"></span><span>
-</span><span id="line-34"></span><span class="annot"><span class="hs-comment">-- |A stream of 'Token'.</span></span><span>
-</span><span id="line-35"></span><span class="hs-keyword">type</span><span> </span><span id="TokenStream"><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TokenStream"><span class="hs-identifier hs-var">TokenStream</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#Token"><span class="hs-identifier hs-type">Token</span></a></span><span class="hs-special">]</span><span>
-</span><span id="line-36"></span><span>
-</span><span id="line-37"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#tokenize"><span class="hs-identifier hs-type">tokenize</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TokenStream"><span class="hs-identifier hs-type">TokenStream</span></a></span><span>
-</span><span id="line-38"></span><span id="tokenize"><span class="annot"><span class="annottext">tokenize :: Text -&gt; Either String [Token]
+</span><span id="line-33"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#tokenize"><span class="hs-identifier hs-type">tokenize</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/text-2.1.2-ecdb/src/Data.Text.Internal.html#Text"><span class="hs-identifier hs-type">Text</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Either.html#Either"><span class="hs-identifier hs-type">Either</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#String"><span class="hs-identifier hs-type">String</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#TokenStream"><span class="hs-identifier hs-type">TokenStream</span></a></span><span>
+</span><span id="line-34"></span><span id="tokenize"><span class="annot"><span class="annottext">tokenize :: Text -&gt; Either String [Token]
 </span><a href="Codec.Wavefront.Material.Token.html#tokenize"><span class="hs-identifier hs-var hs-var">tokenize</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">([Maybe Token] -&gt; [Token])
 -&gt; Either String [Maybe Token] -&gt; Either String [Token]
 forall a b. (a -&gt; b) -&gt; Either String a -&gt; Either String b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="annot"><span class="annottext">[Maybe Token] -&gt; [Token]
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="annot"><span class="annottext">[Maybe Token] -&gt; [Token]
 forall token. [Maybe token] -&gt; [token]
 </span><a href="Codec.Wavefront.Token.html#cleanupTokens"><span class="hs-identifier hs-var">cleanupTokens</span></a></span><span> </span><span class="annot"><span class="annottext">(Either String [Maybe Token] -&gt; Either String [Token])
 -&gt; (Text -&gt; Either String [Maybe Token])
 -&gt; Text
 -&gt; Either String [Token]
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Result [Maybe Token] -&gt; Either String [Maybe Token]
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Result [Maybe Token] -&gt; Either String [Maybe Token]
 forall a. Bool -&gt; Result a -&gt; Either String a
 </span><a href="Codec.Wavefront.Token.html#analyseResult"><span class="hs-identifier hs-var">analyseResult</span></a></span><span> </span><span class="annot"><span class="annottext">Bool
-</span><span class="hs-identifier hs-var">False</span></span><span> </span><span class="annot"><span class="annottext">(Result [Maybe Token] -&gt; Either String [Maybe Token])
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#False"><span class="hs-identifier hs-var">False</span></a></span><span> </span><span class="annot"><span class="annottext">(Result [Maybe Token] -&gt; Either String [Maybe Token])
 -&gt; (Text -&gt; Result [Maybe Token])
 -&gt; Text
 -&gt; Either String [Maybe Token]
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Parser [Maybe Token] -&gt; Text -&gt; Result [Maybe Token]
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Parser [Maybe Token] -&gt; Text -&gt; Result [Maybe Token]
 forall a. Parser a -&gt; Text -&gt; Result a
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#parse"><span class="hs-identifier hs-var">parse</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Parser (Maybe Token) -&gt; Parser [Maybe Token]
 forall a. Parser a -&gt; Parser [a]
 </span><a href="Codec.Wavefront.Token.html#untilEnd"><span class="hs-identifier hs-var">untilEnd</span></a></span><span> </span><span class="annot"><span class="annottext">Parser (Maybe Token)
-</span><a href="#local-6989586621679081708"><span class="hs-identifier hs-var">tokenizer</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-39"></span><span>  </span><span class="hs-keyword">where</span><span>
-</span><span id="line-40"></span><span>    </span><span id="local-6989586621679081708"><span class="annot"><span class="annottext">tokenizer :: Parser (Maybe Token)
-</span><a href="#local-6989586621679081708"><span class="hs-identifier hs-var hs-var">tokenizer</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Parser (Maybe Token)] -&gt; Parser (Maybe Token)
+</span><a href="#local-6989586621679092563"><span class="hs-identifier hs-var">tokenizer</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-35"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-36"></span><span>    </span><span id="local-6989586621679092563"><span class="annot"><span class="annottext">tokenizer :: Parser (Maybe Token)
+</span><a href="#local-6989586621679092563"><span class="hs-identifier hs-var hs-var">tokenizer</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Parser (Maybe Token)] -&gt; Parser (Maybe Token)
 forall (f :: * -&gt; *) a. Alternative f =&gt; [f a] -&gt; f a
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Combinator.html#choice"><span class="hs-identifier hs-var">choice</span></a></span><span>
-</span><span id="line-41"></span><span>      </span><span class="hs-special">[</span><span> </span><span class="annot"><span class="annottext">(Text -&gt; Maybe Token) -&gt; Parser Text Text -&gt; Parser (Maybe Token)
+</span><span id="line-37"></span><span>      </span><span class="hs-special">[</span><span> </span><span class="annot"><span class="annottext">(Text -&gt; Maybe Token) -&gt; Parser Text Text -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Text -&gt; Token) -&gt; Text -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Text -&gt; Token) -&gt; Text -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknName"><span class="hs-identifier hs-var">TknName</span></a></span><span class="hs-special">)</span><span>    </span><span class="annot"><span class="annottext">Parser Text Text
 </span><a href="Codec.Wavefront.Material.Token.html#material"><span class="hs-identifier hs-var">material</span></a></span><span>
+</span><span id="line-38"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
+-&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
+forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+forall a. a -&gt; Maybe a
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+-&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
+</span><a href="Codec.Wavefront.Material.Token.html#TknKa"><span class="hs-identifier hs-var">TknKa</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="Codec.Wavefront.Material.Token.html#ambient"><span class="hs-identifier hs-var">ambient</span></a></span><span>
+</span><span id="line-39"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
+-&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
+forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+forall a. a -&gt; Maybe a
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+-&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
+</span><a href="Codec.Wavefront.Material.Token.html#TknKd"><span class="hs-identifier hs-var">TknKd</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="Codec.Wavefront.Material.Token.html#diffuse"><span class="hs-identifier hs-var">diffuse</span></a></span><span>
+</span><span id="line-40"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
+-&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
+forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+forall a. a -&gt; Maybe a
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+-&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
+</span><a href="Codec.Wavefront.Material.Token.html#TknKe"><span class="hs-identifier hs-var">TknKe</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="Codec.Wavefront.Material.Token.html#specular"><span class="hs-identifier hs-var">specular</span></a></span><span>
+</span><span id="line-41"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
+-&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
+forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+forall a. a -&gt; Maybe a
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+-&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
+</span><a href="Codec.Wavefront.Material.Token.html#TknKs"><span class="hs-identifier hs-var">TknKs</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="Codec.Wavefront.Material.Token.html#emissive"><span class="hs-identifier hs-var">emissive</span></a></span><span>
 </span><span id="line-42"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
 -&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
 -&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
-</span><a href="Codec.Wavefront.Material.Token.html#TknKa"><span class="hs-identifier hs-var">TknKa</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
-</span><a href="Codec.Wavefront.Material.Token.html#ambient"><span class="hs-identifier hs-var">ambient</span></a></span><span>
-</span><span id="line-43"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
--&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
-forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
-forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
-forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
--&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
-forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
-</span><a href="Codec.Wavefront.Material.Token.html#TknKd"><span class="hs-identifier hs-var">TknKd</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
-</span><a href="Codec.Wavefront.Material.Token.html#diffuse"><span class="hs-identifier hs-var">diffuse</span></a></span><span>
-</span><span id="line-44"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
--&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
-forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
-forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
-forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
--&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
-forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
-</span><a href="Codec.Wavefront.Material.Token.html#TknKe"><span class="hs-identifier hs-var">TknKe</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
-</span><a href="Codec.Wavefront.Material.Token.html#specular"><span class="hs-identifier hs-var">specular</span></a></span><span>
-</span><span id="line-45"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
--&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
-forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
-forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
-forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
--&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
-forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
-</span><a href="Codec.Wavefront.Material.Token.html#TknKs"><span class="hs-identifier hs-var">TknKs</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
-</span><a href="Codec.Wavefront.Material.Token.html#emissive"><span class="hs-identifier hs-var">emissive</span></a></span><span>
-</span><span id="line-46"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Reflexivity -&gt; Maybe Token)
--&gt; Parser Text Reflexivity -&gt; Parser (Maybe Token)
-forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
-forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
-forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
--&gt; (Reflexivity -&gt; Token) -&gt; Reflexivity -&gt; Maybe Token
-forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Reflexivity -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknTf"><span class="hs-identifier hs-var">TknTf</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#transmissionFilter"><span class="hs-identifier hs-var">transmissionFilter</span></a></span><span>
-</span><span id="line-47"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(IluminationModel -&gt; Maybe Token)
+</span><span id="line-43"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(IluminationModel -&gt; Maybe Token)
 -&gt; Parser Text IluminationModel -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token)
 -&gt; (IluminationModel -&gt; Token) -&gt; IluminationModel -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">IluminationModel -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">IluminationModel -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknIm"><span class="hs-identifier hs-var">TknIm</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text IluminationModel
 </span><a href="Codec.Wavefront.Material.Token.html#iluminationModel"><span class="hs-identifier hs-var">iluminationModel</span></a></span><span>
-</span><span id="line-48"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
+</span><span id="line-44"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknD"><span class="hs-identifier hs-var">TknD</span></a></span><span class="hs-special">)</span><span>       </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#disolveFilter"><span class="hs-identifier hs-var">disolveFilter</span></a></span><span>
-</span><span id="line-49"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
+</span><span id="line-45"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknSn"><span class="hs-identifier hs-var">TknSn</span></a></span><span class="hs-special">)</span><span>      </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#specularExponent"><span class="hs-identifier hs-var">specularExponent</span></a></span><span>
-</span><span id="line-50"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
+</span><span id="line-46"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknS"><span class="hs-identifier hs-var">TknS</span></a></span><span class="hs-special">)</span><span>       </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#sharpness"><span class="hs-identifier hs-var">sharpness</span></a></span><span>
-</span><span id="line-51"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
+</span><span id="line-47"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Token) -&gt; Parser Text Float -&gt; Parser (Maybe Token)
 forall a b. (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-identifier hs-var">fmap</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#fmap"><span class="hs-identifier hs-var">fmap</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Token -&gt; Maybe Token
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Token -&gt; Maybe Token) -&gt; (Float -&gt; Token) -&gt; Float -&gt; Maybe Token
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#."><span class="hs-operator hs-var">.</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Token
 </span><a href="Codec.Wavefront.Material.Token.html#TknDensity"><span class="hs-identifier hs-var">TknDensity</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#opticalDensity"><span class="hs-identifier hs-var">opticalDensity</span></a></span><span>
-</span><span id="line-52"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Maybe Token
+</span><span id="line-48"></span><span>      </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Maybe Token
 forall a. Maybe a
-</span><span class="hs-identifier hs-var">Nothing</span></span><span> </span><span class="annot"><span class="annottext">Maybe Token -&gt; Parser Text () -&gt; Parser (Maybe Token)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Nothing"><span class="hs-identifier hs-var">Nothing</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Token -&gt; Parser Text () -&gt; Parser (Maybe Token)
 forall a b. a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Functor f =&gt; a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;$</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%24"><span class="hs-operator hs-var">&lt;$</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#comment"><span class="hs-identifier hs-var">comment</span></a></span><span>
-</span><span id="line-53"></span><span>      </span><span class="hs-special">]</span><span>
-</span><span id="line-54"></span><span>
-</span><span id="line-55"></span><span class="hs-comment">-- analyseResult :: Bool -&gt; Result res -&gt; Either String res</span><span>
-</span><span id="line-56"></span><span class="hs-comment">-- analyseResult partial r = case r of</span><span>
-</span><span id="line-57"></span><span class="hs-comment">--   Done _ tkns -&gt; Right tkns</span><span>
-</span><span id="line-58"></span><span class="hs-comment">--   Fail i _ e -&gt; Left $ &quot;`&quot; ++ Prelude.take 100 (unpack i) ++ &quot;` [...]: &quot; ++ e</span><span>
-</span><span id="line-59"></span><span class="hs-comment">--   Partial p -&gt; if partial then Left &quot;not completely tokenized&quot;</span><span>
-</span><span id="line-60"></span><span class="hs-comment">--                           else analyseResult True (p T.empty)</span><span>
-</span><span id="line-61"></span><span>
-</span><span id="line-62"></span><span class="hs-comment">-- cleanupTokens :: [Maybe Token] -&gt; TokenStream</span><span>
-</span><span id="line-63"></span><span class="hs-comment">-- cleanupTokens = catMaybes</span><span>
-</span><span id="line-64"></span><span>
-</span><span id="line-65"></span><span class="hs-comment">--------------------------------------------------------------------------------</span><span>
-</span><span id="line-66"></span><span>
-</span><span id="line-67"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#material"><span class="hs-identifier hs-type">material</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span>
-</span><span id="line-68"></span><span id="material"><span class="annot"><span class="annottext">material :: Parser Text Text
+</span><span id="line-49"></span><span>      </span><span class="hs-special">]</span><span>
+</span><span id="line-50"></span><span>
+</span><span id="line-51"></span><span class="hs-comment">-- analyseResult :: Bool -&gt; Result res -&gt; Either String res</span><span>
+</span><span id="line-52"></span><span class="hs-comment">-- analyseResult partial r = case r of</span><span>
+</span><span id="line-53"></span><span class="hs-comment">--   Done _ tkns -&gt; Right tkns</span><span>
+</span><span id="line-54"></span><span class="hs-comment">--   Fail i _ e -&gt; Left $ &quot;`&quot; ++ Prelude.take 100 (unpack i) ++ &quot;` [...]: &quot; ++ e</span><span>
+</span><span id="line-55"></span><span class="hs-comment">--   Partial p -&gt; if partial then Left &quot;not completely tokenized&quot;</span><span>
+</span><span id="line-56"></span><span class="hs-comment">--                           else analyseResult True (p T.empty)</span><span>
+</span><span id="line-57"></span><span>
+</span><span id="line-58"></span><span class="hs-comment">-- cleanupTokens :: [Maybe Token] -&gt; TokenStream</span><span>
+</span><span id="line-59"></span><span class="hs-comment">-- cleanupTokens = catMaybes</span><span>
+</span><span id="line-60"></span><span>
+</span><span id="line-61"></span><span class="hs-comment">--------------------------------------------------------------------------------</span><span>
+</span><span id="line-62"></span><span>
+</span><span id="line-63"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#material"><span class="hs-identifier hs-type">material</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/text-2.1.2-ecdb/src/Data.Text.Internal.html#Text"><span class="hs-identifier hs-type">Text</span></a></span><span>
+</span><span id="line-64"></span><span id="material"><span class="annot"><span class="annottext">material :: Parser Text Text
 </span><a href="Codec.Wavefront.Material.Token.html#material"><span class="hs-identifier hs-var hs-var">material</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;newmtl &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 </span><a href="Codec.Wavefront.Token.html#name"><span class="hs-identifier hs-var">name</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text () -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#eol"><span class="hs-identifier hs-var">eol</span></a></span><span>
-</span><span id="line-69"></span><span>
-</span><span id="line-70"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#ambient"><span class="hs-identifier hs-type">ambient</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-71"></span><span id="ambient"><span class="annot"><span class="annottext">ambient :: Parser Text Reflexivity
+</span><span id="line-65"></span><span>
+</span><span id="line-66"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#ambient"><span class="hs-identifier hs-type">ambient</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-67"></span><span id="ambient"><span class="annot"><span class="annottext">ambient :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#ambient"><span class="hs-identifier hs-var hs-var">ambient</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Ka &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var">reflexivity</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 -&gt; Parser Text () -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-72"></span><span>
-</span><span id="line-73"></span><span>
-</span><span id="line-74"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-type">reflexivity</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-75"></span><span id="reflexivity"><span class="annot"><span class="annottext">reflexivity :: Parser Text Reflexivity
+</span><span id="line-68"></span><span>
+</span><span id="line-69"></span><span>
+</span><span id="line-70"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-type">reflexivity</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-71"></span><span id="reflexivity"><span class="annot"><span class="annottext">reflexivity :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var hs-var">reflexivity</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Parser Text Reflexivity] -&gt; Parser Text Reflexivity
 forall (f :: * -&gt; *) a. Alternative f =&gt; [f a] -&gt; f a
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Combinator.html#choice"><span class="hs-identifier hs-var">choice</span></a></span><span> </span><span class="hs-special">[</span><span>                        </span><span class="annot"><span class="annottext">RGB -&gt; Reflexivity
 </span><a href="Codec.Wavefront.Material.Type.html#ReflexicityRGB"><span class="hs-identifier hs-var">ReflexicityRGB</span></a></span><span> </span><span class="annot"><span class="annottext">(RGB -&gt; Reflexivity) -&gt; Parser Text RGB -&gt; Parser Text Reflexivity
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text RGB
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Functor.html#%3C%24%3E"><span class="hs-operator hs-var">&lt;$&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text RGB
 </span><a href="Codec.Wavefront.Material.Token.html#rgb"><span class="hs-identifier hs-var">rgb</span></a></span><span>
-</span><span id="line-76"></span><span>                     </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><span id="line-72"></span><span>                     </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;spectral &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">String -&gt; Maybe Float -&gt; Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">String -&gt; Maybe Float -&gt; Reflexivity
 </span><a href="Codec.Wavefront.Material.Type.html#ReflexivitySpectral"><span class="hs-identifier hs-var">ReflexivitySpectral</span></a></span><span> </span><span class="annot"><span class="annottext">(String -&gt; Maybe Float -&gt; Reflexivity)
 -&gt; Parser Text String -&gt; Parser Text (Maybe Float -&gt; Reflexivity)
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span>
-</span><span id="line-77"></span><span>                                               </span><span class="annot"><span class="annottext">Parser Text String
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Functor.html#%3C%24%3E"><span class="hs-operator hs-var">&lt;$&gt;</span></a></span><span>
+</span><span id="line-73"></span><span>                                               </span><span class="annot"><span class="annottext">Parser Text String
 </span><a href="Codec.Wavefront.Material.Token.html#filePath"><span class="hs-identifier hs-var">filePath</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text (Maybe Float -&gt; Reflexivity)
 -&gt; Parser Text (Maybe Float) -&gt; Parser Text Reflexivity
 forall a b. Parser Text (a -&gt; b) -&gt; Parser Text a -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Maybe Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A%3E"><span class="hs-operator hs-var">&lt;*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Float
 -&gt; Parser Text (Maybe Float) -&gt; Parser Text (Maybe Float)
 forall (f :: * -&gt; *) a. Alternative f =&gt; a -&gt; f a -&gt; f a
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Combinator.html#option"><span class="hs-identifier hs-var">option</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Float
 forall a. Maybe a
-</span><span class="hs-identifier hs-var">Nothing</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Float -&gt; Maybe Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Nothing"><span class="hs-identifier hs-var">Nothing</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Float -&gt; Maybe Float
 forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Float)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Just"><span class="hs-identifier hs-var">Just</span></a></span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Maybe Float)
 -&gt; Parser Text Float -&gt; Parser Text (Maybe Float)
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Functor.html#%3C%24%3E"><span class="hs-operator hs-var">&lt;$&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
-</span><span id="line-78"></span><span>                     </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><span id="line-74"></span><span>                     </span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;xyz &quot;</span></span><span>      </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">CIEXYZ -&gt; Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">CIEXYZ -&gt; Reflexivity
 </span><a href="Codec.Wavefront.Material.Type.html#ReflexivityCIE"><span class="hs-identifier hs-var">ReflexivityCIE</span></a></span><span> </span><span class="annot"><span class="annottext">(CIEXYZ -&gt; Reflexivity)
 -&gt; Parser Text CIEXYZ -&gt; Parser Text Reflexivity
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text CIEXYZ
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Functor.html#%3C%24%3E"><span class="hs-operator hs-var">&lt;$&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text CIEXYZ
 </span><a href="Codec.Wavefront.Material.Token.html#cie"><span class="hs-identifier hs-var">cie</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-79"></span><span>                     </span><span class="hs-special">]</span><span>
-</span><span id="line-80"></span><span>
-</span><span id="line-81"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#rgb"><span class="hs-identifier hs-type">rgb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#RGB"><span class="hs-identifier hs-type">RGB</span></a></span><span>
-</span><span id="line-82"></span><span id="rgb"><span class="annot"><span class="annottext">rgb :: Parser Text RGB
-</span><a href="Codec.Wavefront.Material.Token.html#rgb"><span class="hs-identifier hs-var hs-var">rgb</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679081748"><span class="annot"><a href="#local-6989586621679081748"><span class="hs-identifier hs-var">rgb'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><span id="line-75"></span><span>                     </span><span class="hs-special">]</span><span>
+</span><span id="line-76"></span><span>
+</span><span id="line-77"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#rgb"><span class="hs-identifier hs-type">rgb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#RGB"><span class="hs-identifier hs-type">RGB</span></a></span><span>
+</span><span id="line-78"></span><span id="rgb"><span class="annot"><span class="annottext">rgb :: Parser Text RGB
+</span><a href="Codec.Wavefront.Material.Token.html#rgb"><span class="hs-identifier hs-var hs-var">rgb</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679092603"><span class="annot"><a href="#local-6989586621679092603"><span class="hs-identifier hs-var">rgb'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text [Float]
 forall (f :: * -&gt; *) a s. Alternative f =&gt; f a -&gt; f s -&gt; f [a]
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Combinator.html#sepBy1"><span class="hs-operator hs-var">`sepBy1`</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#skipHSpace"><span class="hs-identifier hs-var">skipHSpace</span></a></span><span>
-</span><span id="line-83"></span><span>         </span><span class="hs-keyword">case</span><span> </span><span class="annot"><a href="#local-6989586621679081748"><span class="hs-identifier hs-type">rgb'</span></a></span><span> </span><span class="hs-keyword">of</span><span>
-</span><span id="line-84"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679081750"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081750"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">]</span><span>       </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">RGB -&gt; Parser Text RGB
+</span><span id="line-79"></span><span>         </span><span class="hs-keyword">case</span><span> </span><span class="annot"><a href="#local-6989586621679092603"><span class="hs-identifier hs-type">rgb'</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-80"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679092605"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092605"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">]</span><span>       </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">RGB -&gt; Parser Text RGB
 forall a. a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
-</span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(RGB -&gt; Parser Text RGB) -&gt; RGB -&gt; Parser Text RGB
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#pure"><span class="hs-identifier hs-var">pure</span></a></span><span> </span><span class="annot"><span class="annottext">(RGB -&gt; Parser Text RGB) -&gt; RGB -&gt; Parser Text RGB
 forall a b. (a -&gt; b) -&gt; a -&gt; b
-</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; RGB
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%24"><span class="hs-operator hs-var">$</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; RGB
 </span><a href="Codec.Wavefront.Material.Type.html#RGB"><span class="hs-identifier hs-var">RGB</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081750"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081750"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081750"><span class="hs-identifier hs-var">r</span></a></span><span>
-</span><span id="line-85"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679081752"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081752"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679081753"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081753"><span class="hs-identifier hs-var">g</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679081754"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081754"><span class="hs-identifier hs-var">b</span></a></span></span><span class="hs-special">]</span><span>   </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">RGB -&gt; Parser Text RGB
+</span><a href="#local-6989586621679092605"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092605"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092605"><span class="hs-identifier hs-var">r</span></a></span><span>
+</span><span id="line-81"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679092607"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092607"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679092608"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092608"><span class="hs-identifier hs-var">g</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679092609"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092609"><span class="hs-identifier hs-var">b</span></a></span></span><span class="hs-special">]</span><span>   </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">RGB -&gt; Parser Text RGB
 forall a. a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
-</span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(RGB -&gt; Parser Text RGB) -&gt; RGB -&gt; Parser Text RGB
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#pure"><span class="hs-identifier hs-var">pure</span></a></span><span> </span><span class="annot"><span class="annottext">(RGB -&gt; Parser Text RGB) -&gt; RGB -&gt; Parser Text RGB
 forall a b. (a -&gt; b) -&gt; a -&gt; b
-</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; RGB
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%24"><span class="hs-operator hs-var">$</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; RGB
 </span><a href="Codec.Wavefront.Material.Type.html#RGB"><span class="hs-identifier hs-var">RGB</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081752"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081753"><span class="hs-identifier hs-var">g</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081754"><span class="hs-identifier hs-var">b</span></a></span><span>
-</span><span id="line-86"></span><span>           </span><span class="annot"><span class="annottext">[Float]
+</span><a href="#local-6989586621679092607"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092608"><span class="hs-identifier hs-var">g</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092609"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-82"></span><span>           </span><span class="annot"><span class="annottext">[Float]
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Parser Text RGB
 forall a. String -&gt; Parser Text a
 forall (m :: * -&gt; *) a. MonadFail m =&gt; String -&gt; m a
-</span><span class="hs-identifier hs-var">fail</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Control.Monad.Fail.html#fail"><span class="hs-identifier hs-var">fail</span></a></span><span> </span><span class="annot"><span class="annottext">String
 </span><span class="hs-string">&quot;wrong number of r, g and b arguments for rgb&quot;</span></span><span>
-</span><span id="line-87"></span><span>
-</span><span id="line-88"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#cie"><span class="hs-identifier hs-type">cie</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#CIEXYZ"><span class="hs-identifier hs-type">CIEXYZ</span></a></span><span>
-</span><span id="line-89"></span><span id="cie"><span class="annot"><span class="annottext">cie :: Parser Text CIEXYZ
-</span><a href="Codec.Wavefront.Material.Token.html#cie"><span class="hs-identifier hs-var hs-var">cie</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679081755"><span class="annot"><a href="#local-6989586621679081755"><span class="hs-identifier hs-var">xyz</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><span id="line-83"></span><span>
+</span><span id="line-84"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#cie"><span class="hs-identifier hs-type">cie</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#CIEXYZ"><span class="hs-identifier hs-type">CIEXYZ</span></a></span><span>
+</span><span id="line-85"></span><span id="cie"><span class="annot"><span class="annottext">cie :: Parser Text CIEXYZ
+</span><a href="Codec.Wavefront.Material.Token.html#cie"><span class="hs-identifier hs-var hs-var">cie</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679092610"><span class="annot"><a href="#local-6989586621679092610"><span class="hs-identifier hs-var">xyz</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text [Float]
 forall (f :: * -&gt; *) a s. Alternative f =&gt; f a -&gt; f s -&gt; f [a]
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Combinator.html#sepBy1"><span class="hs-operator hs-var">`sepBy1`</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#skipHSpace"><span class="hs-identifier hs-var">skipHSpace</span></a></span><span>
-</span><span id="line-90"></span><span>         </span><span class="hs-keyword">case</span><span> </span><span class="annot"><a href="#local-6989586621679081755"><span class="hs-identifier hs-type">xyz</span></a></span><span> </span><span class="hs-keyword">of</span><span>
-</span><span id="line-91"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679081756"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081756"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">]</span><span>       </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">CIEXYZ -&gt; Parser Text CIEXYZ
+</span><span id="line-86"></span><span>         </span><span class="hs-keyword">case</span><span> </span><span class="annot"><a href="#local-6989586621679092610"><span class="hs-identifier hs-type">xyz</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-87"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679092611"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092611"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">]</span><span>       </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">CIEXYZ -&gt; Parser Text CIEXYZ
 forall a. a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
-</span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(CIEXYZ -&gt; Parser Text CIEXYZ) -&gt; CIEXYZ -&gt; Parser Text CIEXYZ
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#pure"><span class="hs-identifier hs-var">pure</span></a></span><span> </span><span class="annot"><span class="annottext">(CIEXYZ -&gt; Parser Text CIEXYZ) -&gt; CIEXYZ -&gt; Parser Text CIEXYZ
 forall a b. (a -&gt; b) -&gt; a -&gt; b
-</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; CIEXYZ
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%24"><span class="hs-operator hs-var">$</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; CIEXYZ
 </span><a href="Codec.Wavefront.Material.Type.html#CIEXYZ"><span class="hs-identifier hs-var">CIEXYZ</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081756"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081756"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081756"><span class="hs-identifier hs-var">x</span></a></span><span>
-</span><span id="line-92"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679081758"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081758"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679081759"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081759"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679081760"><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081760"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">]</span><span>   </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">CIEXYZ -&gt; Parser Text CIEXYZ
+</span><a href="#local-6989586621679092611"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092611"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092611"><span class="hs-identifier hs-var">x</span></a></span><span>
+</span><span id="line-88"></span><span>           </span><span class="hs-special">[</span><span id="local-6989586621679092613"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092613"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679092614"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092614"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679092615"><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092615"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">]</span><span>   </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">CIEXYZ -&gt; Parser Text CIEXYZ
 forall a. a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
-</span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(CIEXYZ -&gt; Parser Text CIEXYZ) -&gt; CIEXYZ -&gt; Parser Text CIEXYZ
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#pure"><span class="hs-identifier hs-var">pure</span></a></span><span> </span><span class="annot"><span class="annottext">(CIEXYZ -&gt; Parser Text CIEXYZ) -&gt; CIEXYZ -&gt; Parser Text CIEXYZ
 forall a b. (a -&gt; b) -&gt; a -&gt; b
-</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; CIEXYZ
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%24"><span class="hs-operator hs-var">$</span></a></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float -&gt; CIEXYZ
 </span><a href="Codec.Wavefront.Material.Type.html#CIEXYZ"><span class="hs-identifier hs-var">CIEXYZ</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081758"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081759"><span class="hs-identifier hs-var">y</span></a></span><span> </span><span class="annot"><span class="annottext">Float
-</span><a href="#local-6989586621679081760"><span class="hs-identifier hs-var">z</span></a></span><span>
-</span><span id="line-93"></span><span>           </span><span class="annot"><span class="annottext">[Float]
+</span><a href="#local-6989586621679092613"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092614"><span class="hs-identifier hs-var">y</span></a></span><span> </span><span class="annot"><span class="annottext">Float
+</span><a href="#local-6989586621679092615"><span class="hs-identifier hs-var">z</span></a></span><span>
+</span><span id="line-89"></span><span>           </span><span class="annot"><span class="annottext">[Float]
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Parser Text CIEXYZ
 forall a. String -&gt; Parser Text a
 forall (m :: * -&gt; *) a. MonadFail m =&gt; String -&gt; m a
-</span><span class="hs-identifier hs-var">fail</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Control.Monad.Fail.html#fail"><span class="hs-identifier hs-var">fail</span></a></span><span> </span><span class="annot"><span class="annottext">String
 </span><span class="hs-string">&quot;wrong number of x, y and z arguments for xyz&quot;</span></span><span>
-</span><span id="line-94"></span><span>
-</span><span id="line-95"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#filePath"><span class="hs-identifier hs-type">filePath</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span>
-</span><span id="line-96"></span><span id="filePath"><span class="annot"><span class="annottext">filePath :: Parser Text String
+</span><span id="line-90"></span><span>
+</span><span id="line-91"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#filePath"><span class="hs-identifier hs-type">filePath</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.IO.html#FilePath"><span class="hs-identifier hs-type">FilePath</span></a></span><span>
+</span><span id="line-92"></span><span id="filePath"><span class="annot"><span class="annottext">filePath :: Parser Text String
 </span><a href="Codec.Wavefront.Material.Token.html#filePath"><span class="hs-identifier hs-var hs-var">filePath</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text String
 forall a. HasCallStack =&gt; a
-</span><span class="hs-identifier hs-var">undefined</span></span><span>
-</span><span id="line-97"></span><span>
-</span><span id="line-98"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#diffuse"><span class="hs-identifier hs-type">diffuse</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-99"></span><span id="diffuse"><span class="annot"><span class="annottext">diffuse :: Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Err.html#undefined"><span class="hs-identifier hs-var">undefined</span></a></span><span>
+</span><span id="line-93"></span><span>
+</span><span id="line-94"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#diffuse"><span class="hs-identifier hs-type">diffuse</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-95"></span><span id="diffuse"><span class="annot"><span class="annottext">diffuse :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#diffuse"><span class="hs-identifier hs-var hs-var">diffuse</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Kd &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var">reflexivity</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 -&gt; Parser Text () -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-100"></span><span>
-</span><span id="line-101"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#specular"><span class="hs-identifier hs-type">specular</span></a></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-102"></span><span id="specular"><span class="annot"><span class="annottext">specular :: Parser Text Reflexivity
+</span><span id="line-96"></span><span>
+</span><span id="line-97"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#specular"><span class="hs-identifier hs-type">specular</span></a></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-98"></span><span id="specular"><span class="annot"><span class="annottext">specular :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#specular"><span class="hs-identifier hs-var hs-var">specular</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Ks &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var">reflexivity</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 -&gt; Parser Text () -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-103"></span><span>
-</span><span id="line-104"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#emissive"><span class="hs-identifier hs-type">emissive</span></a></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-105"></span><span id="emissive"><span class="annot"><span class="annottext">emissive :: Parser Text Reflexivity
+</span><span id="line-99"></span><span>
+</span><span id="line-100"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#emissive"><span class="hs-identifier hs-type">emissive</span></a></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-101"></span><span id="emissive"><span class="annot"><span class="annottext">emissive :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#emissive"><span class="hs-identifier hs-var hs-var">emissive</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Ke &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var">reflexivity</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 -&gt; Parser Text () -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-106"></span><span>
-</span><span id="line-107"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#transmissionFilter"><span class="hs-identifier hs-type">transmissionFilter</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
-</span><span id="line-108"></span><span id="transmissionFilter"><span class="annot"><span class="annottext">transmissionFilter :: Parser Text Reflexivity
+</span><span id="line-102"></span><span>
+</span><span id="line-103"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#transmissionFilter"><span class="hs-identifier hs-type">transmissionFilter</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#Reflexivity"><span class="hs-identifier hs-type">Reflexivity</span></a></span><span>
+</span><span id="line-104"></span><span id="transmissionFilter"><span class="annot"><span class="annottext">transmissionFilter :: Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#transmissionFilter"><span class="hs-identifier hs-var hs-var">transmissionFilter</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Tf &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text
 -&gt; Parser Text Reflexivity -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 </span><a href="Codec.Wavefront.Material.Token.html#reflexivity"><span class="hs-identifier hs-var">reflexivity</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Reflexivity
 -&gt; Parser Text () -&gt; Parser Text Reflexivity
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-109"></span><span>
-</span><span id="line-110"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#iluminationModel"><span class="hs-identifier hs-type">iluminationModel</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#IluminationModel"><span class="hs-identifier hs-type">IluminationModel</span></a></span><span>
-</span><span id="line-111"></span><span id="iluminationModel"><span class="annot"><span class="annottext">iluminationModel :: Parser Text IluminationModel
+</span><span id="line-105"></span><span>
+</span><span id="line-106"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#iluminationModel"><span class="hs-identifier hs-type">iluminationModel</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="Codec.Wavefront.Material.Type.html#IluminationModel"><span class="hs-identifier hs-type">IluminationModel</span></a></span><span>
+</span><span id="line-107"></span><span id="iluminationModel"><span class="annot"><span class="annottext">iluminationModel :: Parser Text IluminationModel
 </span><a href="Codec.Wavefront.Material.Token.html#iluminationModel"><span class="hs-identifier hs-var hs-var">iluminationModel</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text ()
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;illum &quot;</span></span><span>
-</span><span id="line-112"></span><span>                      </span><span id="local-6989586621679081763"><span class="annot"><a href="#local-6989586621679081763"><span class="hs-identifier hs-var">i</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Int
+</span><span id="line-108"></span><span>                      </span><span id="local-6989586621679092618"><span class="annot"><a href="#local-6989586621679092618"><span class="hs-identifier hs-var">i</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Parser Int
 forall a. Integral a =&gt; Parser a
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#decimal"><span class="hs-identifier hs-var">decimal</span></a></span><span>
-</span><span id="line-113"></span><span>                      </span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-type">eol'</span></a></span><span>
-</span><span id="line-114"></span><span>                      </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="hs-number">1</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">&lt;=</span></span><span> </span><span class="annot"><a href="#local-6989586621679081763"><span class="hs-identifier hs-type">i</span></a></span><span> </span><span class="annot"><span class="hs-operator hs-type">&amp;&amp;</span></span><span> </span><span class="annot"><a href="#local-6989586621679081763"><span class="hs-identifier hs-type">i</span></a></span><span> </span><span class="annot"><span class="hs-operator hs-type">&lt;=</span></span><span> </span><span class="annot"><span class="hs-number">10</span></span><span> </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="hs-identifier hs-type">pure</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">toEnum</span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="#local-6989586621679081763"><span class="hs-identifier hs-type">i</span></a></span><span class="annot"><span class="hs-glyph hs-type">-</span></span><span class="annot"><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
-</span><span id="line-115"></span><span>                                           </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="hs-identifier hs-type">fail</span></span><span> </span><span class="annot"><span class="hs-string">&quot;invalid illumination model&quot;</span></span><span>
-</span><span id="line-116"></span><span>
-</span><span id="line-117"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#disolveFilter"><span class="hs-identifier hs-type">disolveFilter</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-118"></span><span id="disolveFilter"><span class="annot"><span class="annottext">disolveFilter :: Parser Text Float
+</span><span id="line-109"></span><span>                      </span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-type">eol'</span></a></span><span>
+</span><span id="line-110"></span><span>                      </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="hs-number">1</span></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#%3C%3D"><span class="hs-operator hs-type">&lt;=</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679092618"><span class="hs-identifier hs-type">i</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#%26%26"><span class="hs-operator hs-type">&amp;&amp;</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679092618"><span class="hs-identifier hs-type">i</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#%3C%3D"><span class="hs-operator hs-type">&lt;=</span></a></span><span> </span><span class="annot"><span class="hs-number">10</span></span><span> </span><span class="hs-keyword">then</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#pure"><span class="hs-identifier hs-type">pure</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%24"><span class="hs-operator hs-type">$</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Enum.html#toEnum"><span class="hs-identifier hs-type">toEnum</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="#local-6989586621679092618"><span class="hs-identifier hs-type">i</span></a></span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Num.html#-"><span class="hs-glyph hs-type">-</span></a></span><span class="annot"><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
+</span><span id="line-111"></span><span>                                           </span><span class="hs-keyword">else</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Control.Monad.Fail.html#fail"><span class="hs-identifier hs-type">fail</span></a></span><span> </span><span class="annot"><span class="hs-string">&quot;invalid illumination model&quot;</span></span><span>
+</span><span id="line-112"></span><span>
+</span><span id="line-113"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#disolveFilter"><span class="hs-identifier hs-type">disolveFilter</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-114"></span><span id="disolveFilter"><span class="annot"><span class="annottext">disolveFilter :: Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#disolveFilter"><span class="hs-identifier hs-var hs-var">disolveFilter</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Parser Text Float
-</span><a href="#local-6989586621679081768"><span class="hs-identifier hs-var">disolve</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text Float -&gt; Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="#local-6989586621679092623"><span class="hs-identifier hs-var">disolve</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text Float -&gt; Parser Text Float
 forall a. Parser Text a -&gt; Parser Text a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Alternative f =&gt; f a -&gt; f a -&gt; f a
-</span><span class="hs-operator hs-var">&lt;|&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
-</span><a href="#local-6989586621679081770"><span class="hs-identifier hs-var">transparent</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%7C%3E"><span class="hs-operator hs-var">&lt;|&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="#local-6989586621679092625"><span class="hs-identifier hs-var">transparent</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-119"></span><span>  </span><span class="hs-keyword">where</span><span>
-</span><span id="line-120"></span><span>    </span><span id="local-6989586621679081768"><span class="annot"><span class="annottext">disolve :: Parser Text Float
-</span><a href="#local-6989586621679081768"><span class="hs-identifier hs-var hs-var">disolve</span></a></span></span><span>     </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><span id="line-115"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-116"></span><span>    </span><span id="local-6989586621679092623"><span class="annot"><span class="annottext">disolve :: Parser Text Float
+</span><a href="#local-6989586621679092623"><span class="hs-identifier hs-var hs-var">disolve</span></a></span></span><span>     </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;d &quot;</span></span><span>  </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span>
-</span><span id="line-121"></span><span>    </span><span id="local-6989586621679081770"><span class="annot"><span class="annottext">transparent :: Parser Text Float
-</span><a href="#local-6989586621679081770"><span class="hs-identifier hs-var hs-var">transparent</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><span id="line-117"></span><span>    </span><span id="local-6989586621679092625"><span class="annot"><span class="annottext">transparent :: Parser Text Float
+</span><a href="#local-6989586621679092625"><span class="hs-identifier hs-var hs-var">transparent</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Tr &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="annot"><span class="annottext">Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="annot"><span class="annottext">Float
 </span><span class="hs-number">1</span></span><span> </span><span class="annot"><span class="annottext">Float -&gt; Float -&gt; Float
 forall a. Num a =&gt; a -&gt; a -&gt; a
-</span><span class="hs-glyph hs-var">-</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Float) -&gt; Parser Text Float -&gt; Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Num.html#-"><span class="hs-glyph hs-var">-</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">(Float -&gt; Float) -&gt; Parser Text Float -&gt; Parser Text Float
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
-</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Data.Functor.html#%3C%24%3E"><span class="hs-operator hs-var">&lt;$&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-122"></span><span>
-</span><span id="line-123"></span><span>
-</span><span id="line-124"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#specularExponent"><span class="hs-identifier hs-type">specularExponent</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-125"></span><span id="specularExponent"><span class="annot"><span class="annottext">specularExponent :: Parser Text Float
+</span><span id="line-118"></span><span>
+</span><span id="line-119"></span><span>
+</span><span id="line-120"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#specularExponent"><span class="hs-identifier hs-type">specularExponent</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-121"></span><span id="specularExponent"><span class="annot"><span class="annottext">specularExponent :: Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#specularExponent"><span class="hs-identifier hs-var hs-var">specularExponent</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Ns &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-126"></span><span>
-</span><span id="line-127"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#sharpness"><span class="hs-identifier hs-type">sharpness</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-128"></span><span id="sharpness"><span class="annot"><span class="annottext">sharpness :: Parser Text Float
+</span><span id="line-122"></span><span>
+</span><span id="line-123"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#sharpness"><span class="hs-identifier hs-type">sharpness</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-124"></span><span id="sharpness"><span class="annot"><span class="annottext">sharpness :: Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#sharpness"><span class="hs-identifier hs-var hs-var">sharpness</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;sharpness &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-129"></span><span>
-</span><span id="line-130"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#opticalDensity"><span class="hs-identifier hs-type">opticalDensity</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-131"></span><span id="opticalDensity"><span class="annot"><span class="annottext">opticalDensity :: Parser Text Float
+</span><span id="line-125"></span><span>
+</span><span id="line-126"></span><span class="annot"><a href="Codec.Wavefront.Material.Token.html#opticalDensity"><span class="hs-identifier hs-type">opticalDensity</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-127"></span><span id="opticalDensity"><span class="annot"><span class="annottext">opticalDensity :: Parser Text Float
 </span><a href="Codec.Wavefront.Material.Token.html#opticalDensity"><span class="hs-identifier hs-var hs-var">opticalDensity</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.html#skipSpace"><span class="hs-identifier hs-var">skipSpace</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text Text -&gt; Parser Text Text
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Parser Text Text
 </span><a href="file:///home/runner/.cabal/store/ghc-9.12.2-9b33/attoparsec-0.14.4-8b082531170006219ab6f52eab97cafdb775f66cfb9d7d6d65a2cda7a9fe0936/share/doc/html/src/Data.Attoparsec.Text.Internal.html#string"><span class="hs-identifier hs-var">string</span></a></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Ni &quot;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Text -&gt; Parser Text Float -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text b
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f b
-</span><span class="hs-operator hs-var">*&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%2A%3E"><span class="hs-operator hs-var">*&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float
 </span><a href="Codec.Wavefront.Token.html#float"><span class="hs-identifier hs-var">float</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text Float -&gt; Parser Text () -&gt; Parser Text Float
 forall a b. Parser Text a -&gt; Parser Text b -&gt; Parser Text a
 forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
-</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%2A"><span class="hs-operator hs-var">&lt;*</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var">eol'</span></a></span><span>
-</span><span id="line-132"></span><span>
-</span><span id="line-133"></span><span class="annot"><span class="hs-comment">-- | Comment or end of line</span></span><span>
-</span><span id="line-134"></span><span id="eol%27"><span class="annot"><span class="annottext">eol' :: Parser Text ()
+</span><span id="line-128"></span><span>
+</span><span id="line-129"></span><span class="annot"><span class="hs-comment">-- | Comment or end of line</span></span><span>
+</span><span id="line-130"></span><span id="eol%27"><span class="annot"><span class="annottext">eol' :: Parser Text ()
 </span><a href="Codec.Wavefront.Material.Token.html#eol%27"><span class="hs-identifier hs-var hs-var">eol'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#comment"><span class="hs-identifier hs-var">comment</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text () -&gt; Parser Text () -&gt; Parser Text ()
 forall a. Parser Text a -&gt; Parser Text a -&gt; Parser Text a
 forall (f :: * -&gt; *) a. Alternative f =&gt; f a -&gt; f a -&gt; f a
-</span><span class="hs-operator hs-var">&lt;|&gt;</span></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Base.html#%3C%7C%3E"><span class="hs-operator hs-var">&lt;|&gt;</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Text ()
 </span><a href="Codec.Wavefront.Token.html#eol"><span class="hs-identifier hs-var">eol</span></a></span><span>
-</span><span id="line-135"></span></pre></body></html>
+</span><span id="line-131"></span></pre></body></html>

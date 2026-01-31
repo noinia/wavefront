@@ -11,19 +11,21 @@
 </span><span id="line-11"></span><span>
 </span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Point.html"><span class="hs-identifier">Codec.Wavefront.Point</span></a></span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-13"></span><span>
-</span><span id="line-14"></span><span class="hs-comment">-- |A point is a single index that references the locations. It&#8217;s a canonical type that truly</span><span>
-</span><span id="line-15"></span><span class="hs-comment">-- represents a polygonal point.</span><span>
-</span><span id="line-16"></span><span class="hs-keyword">data</span><span> </span><span id="Point"><span class="annot"><a href="Codec.Wavefront.Point.html#Point"><span class="hs-identifier hs-var">Point</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Point"><span class="annot"><a href="Codec.Wavefront.Point.html#Point"><span class="hs-identifier hs-var">Point</span></a></span></span><span> </span><span class="hs-special">{</span><span>
-</span><span id="line-17"></span><span>    </span><span id="pointLocIndex"><span class="annot"><span class="annottext">Point -&gt; Int
-</span><a href="Codec.Wavefront.Point.html#pointLocIndex"><span class="hs-identifier hs-var hs-var">pointLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-18"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080597"><span id="local-6989586621679080601"><span class="annot"><span class="annottext">Point -&gt; Point -&gt; Bool
+</span><span id="line-14"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/GHC.Generics.html"><span class="hs-identifier">GHC.Generics</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier">Generic</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- |A point is a single index that references the locations. It&#8217;s a canonical type that truly</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- represents a polygonal point.</span><span>
+</span><span id="line-18"></span><span class="hs-keyword">data</span><span> </span><span id="Point"><span class="annot"><a href="Codec.Wavefront.Point.html#Point"><span class="hs-identifier hs-var">Point</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Point"><span class="annot"><a href="Codec.Wavefront.Point.html#Point"><span class="hs-identifier hs-var">Point</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-19"></span><span>    </span><span id="pointLocIndex"><span class="annot"><span class="annottext">Point -&gt; Int
+</span><a href="Codec.Wavefront.Point.html#pointLocIndex"><span class="hs-identifier hs-var hs-var">pointLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Int"><span class="hs-identifier hs-type">Int</span></a></span><span>
+</span><span id="line-20"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679091434"><span id="local-6989586621679091438"><span class="annot"><span class="annottext">Point -&gt; Point -&gt; Bool
 (Point -&gt; Point -&gt; Bool) -&gt; (Point -&gt; Point -&gt; Bool) -&gt; Eq Point
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Point -&gt; Point -&gt; Bool
 == :: Point -&gt; Point -&gt; Bool
 $c/= :: Point -&gt; Point -&gt; Bool
 /= :: Point -&gt; Point -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080606"><span id="local-6989586621679080612"><span id="local-6989586621679080616"><span class="annot"><span class="annottext">Int -&gt; Point -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091443"><span id="local-6989586621679091449"><span id="local-6989586621679091453"><span class="annot"><span class="annottext">Int -&gt; Point -&gt; ShowS
 [Point] -&gt; ShowS
 Point -&gt; String
 (Int -&gt; Point -&gt; ShowS)
@@ -36,5 +38,15 @@ $cshow :: Point -&gt; String
 show :: Point -&gt; String
 $cshowList :: [Point] -&gt; ShowS
 showList :: [Point] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
-</span><span id="line-19"></span></pre></body></html>
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091458"><span id="local-6989586621679091460"><span class="annot"><span class="annottext">(forall x. Point -&gt; Rep Point x)
+-&gt; (forall x. Rep Point x -&gt; Point) -&gt; Generic Point
+forall x. Rep Point x -&gt; Point
+forall x. Point -&gt; Rep Point x
+forall a.
+(forall x. a -&gt; Rep a x) -&gt; (forall x. Rep a x -&gt; a) -&gt; Generic a
+$cfrom :: forall x. Point -&gt; Rep Point x
+from :: forall x. Point -&gt; Rep Point x
+$cto :: forall x. Rep Point x -&gt; Point
+to :: forall x. Rep Point x -&gt; Point
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Generic</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-21"></span></pre></body></html>

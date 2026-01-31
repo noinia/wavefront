@@ -11,15 +11,17 @@
 </span><span id="line-11"></span><span>
 </span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html"><span class="hs-identifier">Codec.Wavefront.Line</span></a></span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-13"></span><span>
-</span><span id="line-14"></span><span class="hs-comment">-- |A line index is a pair of indices. @'LineIndex' vi vti@. @vi@ references the locations and @vti@</span><span>
-</span><span id="line-15"></span><span class="hs-comment">-- indexes the texture coordinates. If @vti == 'Nothing'@, then that 'LineIndex' doesn&#8217;t have</span><span>
-</span><span id="line-16"></span><span class="hs-comment">-- texture coordinates associated with.</span><span>
-</span><span id="line-17"></span><span class="hs-keyword">data</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-special">{</span><span>
-</span><span id="line-18"></span><span>    </span><span id="lineLocIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Int
-</span><a href="Codec.Wavefront.Line.html#lineLocIndex"><span class="hs-identifier hs-var hs-var">lineLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-19"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineTexCoordIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Maybe Int
-</span><a href="Codec.Wavefront.Line.html#lineTexCoordIndex"><span class="hs-identifier hs-var hs-var">lineTexCoordIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span><span>
-</span><span id="line-20"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080129"><span id="local-6989586621679080135"><span class="annot"><span class="annottext">LineIndex -&gt; LineIndex -&gt; Bool
+</span><span id="line-14"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/GHC.Generics.html"><span class="hs-identifier">GHC.Generics</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier">Generic</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- |A line index is a pair of indices. @'LineIndex' vi vti@. @vi@ references the locations and @vti@</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- indexes the texture coordinates. If @vti == 'Nothing'@, then that 'LineIndex' doesn&#8217;t have</span><span>
+</span><span id="line-18"></span><span class="hs-comment">-- texture coordinates associated with.</span><span>
+</span><span id="line-19"></span><span class="hs-keyword">data</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="LineIndex"><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-var">LineIndex</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-20"></span><span>    </span><span id="lineLocIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Int
+</span><a href="Codec.Wavefront.Line.html#lineLocIndex"><span class="hs-identifier hs-var hs-var">lineLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Int"><span class="hs-identifier hs-type">Int</span></a></span><span>
+</span><span id="line-21"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineTexCoordIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Maybe Int
+</span><a href="Codec.Wavefront.Line.html#lineTexCoordIndex"><span class="hs-identifier hs-var hs-var">lineTexCoordIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Maybe"><span class="hs-identifier hs-type">Maybe</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Int"><span class="hs-identifier hs-type">Int</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-22"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090892"><span id="local-6989586621679090898"><span class="annot"><span class="annottext">LineIndex -&gt; LineIndex -&gt; Bool
 (LineIndex -&gt; LineIndex -&gt; Bool)
 -&gt; (LineIndex -&gt; LineIndex -&gt; Bool) -&gt; Eq LineIndex
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -27,7 +29,7 @@ $c== :: LineIndex -&gt; LineIndex -&gt; Bool
 == :: LineIndex -&gt; LineIndex -&gt; Bool
 $c/= :: LineIndex -&gt; LineIndex -&gt; Bool
 /= :: LineIndex -&gt; LineIndex -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080140"><span id="local-6989586621679080148"><span id="local-6989586621679080152"><span class="annot"><span class="annottext">Int -&gt; LineIndex -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090903"><span id="local-6989586621679090911"><span id="local-6989586621679090915"><span class="annot"><span class="annottext">Int -&gt; LineIndex -&gt; ShowS
 [LineIndex] -&gt; ShowS
 LineIndex -&gt; String
 (Int -&gt; LineIndex -&gt; ShowS)
@@ -42,22 +44,32 @@ $cshow :: LineIndex -&gt; String
 show :: LineIndex -&gt; String
 $cshowList :: [LineIndex] -&gt; ShowS
 showList :: [LineIndex] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
-</span><span id="line-21"></span><span>
-</span><span id="line-22"></span><span class="hs-comment">-- A line gathers two line indices accessible by pattern matching or 'lineIndexA' and 'lineIndexB'.</span><span>
-</span><span id="line-23"></span><span class="hs-keyword">data</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-special">{</span><span>
-</span><span id="line-24"></span><span>    </span><span id="lineIndexA"><span class="annot"><span class="annottext">Line -&gt; LineIndex
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090920"><span id="local-6989586621679090922"><span class="annot"><span class="annottext">(forall x. LineIndex -&gt; Rep LineIndex x)
+-&gt; (forall x. Rep LineIndex x -&gt; LineIndex) -&gt; Generic LineIndex
+forall x. Rep LineIndex x -&gt; LineIndex
+forall x. LineIndex -&gt; Rep LineIndex x
+forall a.
+(forall x. a -&gt; Rep a x) -&gt; (forall x. Rep a x -&gt; a) -&gt; Generic a
+$cfrom :: forall x. LineIndex -&gt; Rep LineIndex x
+from :: forall x. LineIndex -&gt; Rep LineIndex x
+$cto :: forall x. Rep LineIndex x -&gt; LineIndex
+to :: forall x. Rep LineIndex x -&gt; LineIndex
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Generic</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-23"></span><span>
+</span><span id="line-24"></span><span class="hs-comment">-- A line gathers two line indices accessible by pattern matching or 'lineIndexA' and 'lineIndexB'.</span><span>
+</span><span id="line-25"></span><span class="hs-keyword">data</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Line"><span class="annot"><a href="Codec.Wavefront.Line.html#Line"><span class="hs-identifier hs-var">Line</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-26"></span><span>    </span><span id="lineIndexA"><span class="annot"><span class="annottext">Line -&gt; LineIndex
 </span><a href="Codec.Wavefront.Line.html#lineIndexA"><span class="hs-identifier hs-var hs-var">lineIndexA</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
-</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineIndexB"><span class="annot"><span class="annottext">Line -&gt; LineIndex
+</span><span id="line-27"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineIndexB"><span class="annot"><span class="annottext">Line -&gt; LineIndex
 </span><a href="Codec.Wavefront.Line.html#lineIndexB"><span class="hs-identifier hs-var hs-var">lineIndexB</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
-</span><span id="line-26"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080160"><span id="local-6989586621679080164"><span class="annot"><span class="annottext">Line -&gt; Line -&gt; Bool
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090931"><span id="local-6989586621679090935"><span class="annot"><span class="annottext">Line -&gt; Line -&gt; Bool
 (Line -&gt; Line -&gt; Bool) -&gt; (Line -&gt; Line -&gt; Bool) -&gt; Eq Line
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Line -&gt; Line -&gt; Bool
 == :: Line -&gt; Line -&gt; Bool
 $c/= :: Line -&gt; Line -&gt; Bool
 /= :: Line -&gt; Line -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080168"><span id="local-6989586621679080173"><span id="local-6989586621679080177"><span class="annot"><span class="annottext">Int -&gt; Line -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090939"><span id="local-6989586621679090944"><span id="local-6989586621679090948"><span class="annot"><span class="annottext">Int -&gt; Line -&gt; ShowS
 [Line] -&gt; ShowS
 Line -&gt; String
 (Int -&gt; Line -&gt; ShowS)
@@ -70,5 +82,15 @@ $cshow :: Line -&gt; String
 show :: Line -&gt; String
 $cshowList :: [Line] -&gt; ShowS
 showList :: [Line] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
-</span><span id="line-27"></span></pre></body></html>
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090951"><span id="local-6989586621679090953"><span class="annot"><span class="annottext">(forall x. Line -&gt; Rep Line x)
+-&gt; (forall x. Rep Line x -&gt; Line) -&gt; Generic Line
+forall x. Rep Line x -&gt; Line
+forall x. Line -&gt; Rep Line x
+forall a.
+(forall x. a -&gt; Rep a x) -&gt; (forall x. Rep a x -&gt; a) -&gt; Generic a
+$cfrom :: forall x. Line -&gt; Rep Line x
+from :: forall x. Line -&gt; Rep Line x
+$cto :: forall x. Rep Line x -&gt; Line
+to :: forall x. Rep Line x -&gt; Line
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Generic</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-29"></span></pre></body></html>

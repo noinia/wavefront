@@ -11,23 +11,25 @@
 </span><span id="line-11"></span><span>
 </span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.Location.html"><span class="hs-identifier">Codec.Wavefront.Location</span></a></span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-13"></span><span>
-</span><span id="line-14"></span><span class="hs-comment">-- |A location is a 4-floating vector. You can access to its components by pattern matching on them:</span><span>
-</span><span id="line-15"></span><span class="hs-comment">--</span><span>
-</span><span id="line-16"></span><span class="hs-comment">-- @</span><span>
-</span><span id="line-17"></span><span class="hs-comment">--   let Location x y z w = Location 1 2 3 4</span><span>
+</span><span id="line-14"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/GHC.Generics.html"><span class="hs-identifier">GHC.Generics</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier">Generic</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- |A location is a 4-floating vector. You can access to its components by pattern matching on them:</span><span>
+</span><span id="line-17"></span><span class="hs-comment">--</span><span>
 </span><span id="line-18"></span><span class="hs-comment">-- @</span><span>
-</span><span id="line-19"></span><span class="hs-comment">--</span><span>
-</span><span id="line-20"></span><span class="hs-comment">-- That type is strict and unboxed.</span><span>
-</span><span id="line-21"></span><span class="hs-keyword">data</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-special">{</span><span>
-</span><span id="line-22"></span><span>    </span><span id="locX"><span class="annot"><span class="annottext">Location -&gt; Float
-</span><a href="Codec.Wavefront.Location.html#locX"><span class="hs-identifier hs-var hs-var">locX</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-23"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locY"><span class="annot"><span class="annottext">Location -&gt; Float
-</span><a href="Codec.Wavefront.Location.html#locY"><span class="hs-identifier hs-var hs-var">locY</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-24"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locZ"><span class="annot"><span class="annottext">Location -&gt; Float
-</span><a href="Codec.Wavefront.Location.html#locZ"><span class="hs-identifier hs-var hs-var">locZ</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locW"><span class="annot"><span class="annottext">Location -&gt; Float
-</span><a href="Codec.Wavefront.Location.html#locW"><span class="hs-identifier hs-var hs-var">locW</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-26"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080203"><span id="local-6989586621679080210"><span class="annot"><span class="annottext">Location -&gt; Location -&gt; Bool
+</span><span id="line-19"></span><span class="hs-comment">--   let Location x y z w = Location 1 2 3 4</span><span>
+</span><span id="line-20"></span><span class="hs-comment">-- @</span><span>
+</span><span id="line-21"></span><span class="hs-comment">--</span><span>
+</span><span id="line-22"></span><span class="hs-comment">-- That type is strict and unboxed.</span><span>
+</span><span id="line-23"></span><span class="hs-keyword">data</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Location"><span class="annot"><a href="Codec.Wavefront.Location.html#Location"><span class="hs-identifier hs-var">Location</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-24"></span><span>    </span><span id="locX"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locX"><span class="hs-identifier hs-var hs-var">locX</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locY"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locY"><span class="hs-identifier hs-var hs-var">locY</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-26"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locZ"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locZ"><span class="hs-identifier hs-var hs-var">locZ</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-27"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="locW"><span class="annot"><span class="annottext">Location -&gt; Float
+</span><a href="Codec.Wavefront.Location.html#locW"><span class="hs-identifier hs-var hs-var">locW</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090986"><span id="local-6989586621679090993"><span class="annot"><span class="annottext">Location -&gt; Location -&gt; Bool
 (Location -&gt; Location -&gt; Bool)
 -&gt; (Location -&gt; Location -&gt; Bool) -&gt; Eq Location
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -35,7 +37,7 @@ $c== :: Location -&gt; Location -&gt; Bool
 == :: Location -&gt; Location -&gt; Bool
 $c/= :: Location -&gt; Location -&gt; Bool
 /= :: Location -&gt; Location -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080215"><span id="local-6989586621679080224"><span id="local-6989586621679080228"><span class="annot"><span class="annottext">Int -&gt; Location -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090998"><span id="local-6989586621679091007"><span id="local-6989586621679091011"><span class="annot"><span class="annottext">Int -&gt; Location -&gt; ShowS
 [Location] -&gt; ShowS
 Location -&gt; String
 (Int -&gt; Location -&gt; ShowS)
@@ -48,5 +50,15 @@ $cshow :: Location -&gt; String
 show :: Location -&gt; String
 $cshowList :: [Location] -&gt; ShowS
 showList :: [Location] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
-</span><span id="line-27"></span></pre></body></html>
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091016"><span id="local-6989586621679091018"><span class="annot"><span class="annottext">(forall x. Location -&gt; Rep Location x)
+-&gt; (forall x. Rep Location x -&gt; Location) -&gt; Generic Location
+forall x. Rep Location x -&gt; Location
+forall x. Location -&gt; Rep Location x
+forall a.
+(forall x. a -&gt; Rep a x) -&gt; (forall x. Rep a x -&gt; a) -&gt; Generic a
+$cfrom :: forall x. Location -&gt; Rep Location x
+from :: forall x. Location -&gt; Rep Location x
+$cto :: forall x. Rep Location x -&gt; Location
+to :: forall x. Rep Location x -&gt; Location
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Generic</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-29"></span></pre></body></html>

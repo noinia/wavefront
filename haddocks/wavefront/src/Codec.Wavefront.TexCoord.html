@@ -11,22 +11,24 @@
 </span><span id="line-11"></span><span>
 </span><span id="line-12"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Codec.Wavefront.TexCoord.html"><span class="hs-identifier">Codec.Wavefront.TexCoord</span></a></span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-13"></span><span>
-</span><span id="line-14"></span><span class="hs-comment">-- |A texture coordinate is a 3D-floating vector. You can access to its components by pattern</span><span>
-</span><span id="line-15"></span><span class="hs-comment">-- matching on them:</span><span>
-</span><span id="line-16"></span><span class="hs-comment">--</span><span>
-</span><span id="line-17"></span><span class="hs-comment">-- @</span><span>
-</span><span id="line-18"></span><span class="hs-comment">--   let TexCoord r s t = TexCoord 0.1 0.2 0.3</span><span>
+</span><span id="line-14"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/base-4.21.0.0-ae91/src/GHC.Generics.html"><span class="hs-identifier">GHC.Generics</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier">Generic</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- |A texture coordinate is a 3D-floating vector. You can access to its components by pattern</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- matching on them:</span><span>
+</span><span id="line-18"></span><span class="hs-comment">--</span><span>
 </span><span id="line-19"></span><span class="hs-comment">-- @</span><span>
-</span><span id="line-20"></span><span class="hs-comment">--</span><span>
-</span><span id="line-21"></span><span class="hs-comment">-- That type is strcit and unboxed.</span><span>
-</span><span id="line-22"></span><span class="hs-keyword">data</span><span> </span><span id="TexCoord"><span class="annot"><a href="Codec.Wavefront.TexCoord.html#TexCoord"><span class="hs-identifier hs-var">TexCoord</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="TexCoord"><span class="annot"><a href="Codec.Wavefront.TexCoord.html#TexCoord"><span class="hs-identifier hs-var">TexCoord</span></a></span></span><span> </span><span class="hs-special">{</span><span>
-</span><span id="line-23"></span><span>    </span><span id="texcoordR"><span class="annot"><span class="annottext">TexCoord -&gt; Float
-</span><a href="Codec.Wavefront.TexCoord.html#texcoordR"><span class="hs-identifier hs-var hs-var">texcoordR</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-24"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="texcoordS"><span class="annot"><span class="annottext">TexCoord -&gt; Float
-</span><a href="Codec.Wavefront.TexCoord.html#texcoordS"><span class="hs-identifier hs-var hs-var">texcoordS</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-25"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="texcoordT"><span class="annot"><span class="annottext">TexCoord -&gt; Float
-</span><a href="Codec.Wavefront.TexCoord.html#texcoordT"><span class="hs-identifier hs-var hs-var">texcoordT</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><span class="hs-identifier hs-type">Float</span></span><span>
-</span><span id="line-26"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679080878"><span id="local-6989586621679080884"><span class="annot"><span class="annottext">TexCoord -&gt; TexCoord -&gt; Bool
+</span><span id="line-20"></span><span class="hs-comment">--   let TexCoord r s t = TexCoord 0.1 0.2 0.3</span><span>
+</span><span id="line-21"></span><span class="hs-comment">-- @</span><span>
+</span><span id="line-22"></span><span class="hs-comment">--</span><span>
+</span><span id="line-23"></span><span class="hs-comment">-- That type is strict and unboxed.</span><span>
+</span><span id="line-24"></span><span class="hs-keyword">data</span><span> </span><span id="TexCoord"><span class="annot"><a href="Codec.Wavefront.TexCoord.html#TexCoord"><span class="hs-identifier hs-var">TexCoord</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="TexCoord"><span class="annot"><a href="Codec.Wavefront.TexCoord.html#TexCoord"><span class="hs-identifier hs-var">TexCoord</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-25"></span><span>    </span><span id="texcoordR"><span class="annot"><span class="annottext">TexCoord -&gt; Float
+</span><a href="Codec.Wavefront.TexCoord.html#texcoordR"><span class="hs-identifier hs-var hs-var">texcoordR</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-26"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="texcoordS"><span class="annot"><span class="annottext">TexCoord -&gt; Float
+</span><a href="Codec.Wavefront.TexCoord.html#texcoordS"><span class="hs-identifier hs-var hs-var">texcoordS</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-27"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="texcoordT"><span class="annot"><span class="annottext">TexCoord -&gt; Float
+</span><a href="Codec.Wavefront.TexCoord.html#texcoordT"><span class="hs-identifier hs-var hs-var">texcoordT</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Float"><span class="hs-identifier hs-type">Float</span></a></span><span>
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679091728"><span id="local-6989586621679091734"><span class="annot"><span class="annottext">TexCoord -&gt; TexCoord -&gt; Bool
 (TexCoord -&gt; TexCoord -&gt; Bool)
 -&gt; (TexCoord -&gt; TexCoord -&gt; Bool) -&gt; Eq TexCoord
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -34,7 +36,7 @@ $c== :: TexCoord -&gt; TexCoord -&gt; Bool
 == :: TexCoord -&gt; TexCoord -&gt; Bool
 $c/= :: TexCoord -&gt; TexCoord -&gt; Bool
 /= :: TexCoord -&gt; TexCoord -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679080889"><span id="local-6989586621679080897"><span id="local-6989586621679080901"><span class="annot"><span class="annottext">Int -&gt; TexCoord -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091739"><span id="local-6989586621679091747"><span id="local-6989586621679091751"><span class="annot"><span class="annottext">Int -&gt; TexCoord -&gt; ShowS
 [TexCoord] -&gt; ShowS
 TexCoord -&gt; String
 (Int -&gt; TexCoord -&gt; ShowS)
@@ -47,6 +49,16 @@ $cshow :: TexCoord -&gt; String
 show :: TexCoord -&gt; String
 $cshowList :: [TexCoord] -&gt; ShowS
 showList :: [TexCoord] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
-</span><span id="line-27"></span><span>
-</span><span id="line-28"></span></pre></body></html>
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679091756"><span id="local-6989586621679091758"><span class="annot"><span class="annottext">(forall x. TexCoord -&gt; Rep TexCoord x)
+-&gt; (forall x. Rep TexCoord x -&gt; TexCoord) -&gt; Generic TexCoord
+forall x. Rep TexCoord x -&gt; TexCoord
+forall x. TexCoord -&gt; Rep TexCoord x
+forall a.
+(forall x. a -&gt; Rep a x) -&gt; (forall x. Rep a x -&gt; a) -&gt; Generic a
+$cfrom :: forall x. TexCoord -&gt; Rep TexCoord x
+from :: forall x. TexCoord -&gt; Rep TexCoord x
+$cto :: forall x. Rep TexCoord x -&gt; TexCoord
+to :: forall x. Rep TexCoord x -&gt; TexCoord
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Generics.html#Generic"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Generic</span></a></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span></pre></body></html>
