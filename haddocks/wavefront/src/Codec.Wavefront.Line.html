@@ -21,7 +21,7 @@
 </span><a href="Codec.Wavefront.Line.html#lineLocIndex"><span class="hs-identifier hs-var hs-var">lineLocIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-pragma">{-# UNPACK</span><span> </span><span class="hs-pragma">#-}</span><span> </span><span class="hs-glyph">!</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Int"><span class="hs-identifier hs-type">Int</span></a></span><span>
 </span><span id="line-21"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineTexCoordIndex"><span class="annot"><span class="annottext">LineIndex -&gt; Maybe Int
 </span><a href="Codec.Wavefront.Line.html#lineTexCoordIndex"><span class="hs-identifier hs-var hs-var">lineTexCoordIndex</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Maybe.html#Maybe"><span class="hs-identifier hs-type">Maybe</span></a></span><span> </span><span class="annot"><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Types.html#Int"><span class="hs-identifier hs-type">Int</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-22"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090892"><span id="local-6989586621679090898"><span class="annot"><span class="annottext">LineIndex -&gt; LineIndex -&gt; Bool
+</span><span id="line-22"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090883"><span id="local-6989586621679090889"><span class="annot"><span class="annottext">LineIndex -&gt; LineIndex -&gt; Bool
 (LineIndex -&gt; LineIndex -&gt; Bool)
 -&gt; (LineIndex -&gt; LineIndex -&gt; Bool) -&gt; Eq LineIndex
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -29,7 +29,7 @@ $c== :: LineIndex -&gt; LineIndex -&gt; Bool
 == :: LineIndex -&gt; LineIndex -&gt; Bool
 $c/= :: LineIndex -&gt; LineIndex -&gt; Bool
 /= :: LineIndex -&gt; LineIndex -&gt; Bool
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090903"><span id="local-6989586621679090911"><span id="local-6989586621679090915"><span class="annot"><span class="annottext">Int -&gt; LineIndex -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090894"><span id="local-6989586621679090902"><span id="local-6989586621679090906"><span class="annot"><span class="annottext">Int -&gt; LineIndex -&gt; ShowS
 [LineIndex] -&gt; ShowS
 LineIndex -&gt; String
 (Int -&gt; LineIndex -&gt; ShowS)
@@ -44,7 +44,7 @@ $cshow :: LineIndex -&gt; String
 show :: LineIndex -&gt; String
 $cshowList :: [LineIndex] -&gt; ShowS
 showList :: [LineIndex] -&gt; ShowS
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090920"><span id="local-6989586621679090922"><span class="annot"><span class="annottext">(forall x. LineIndex -&gt; Rep LineIndex x)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090911"><span id="local-6989586621679090913"><span class="annot"><span class="annottext">(forall x. LineIndex -&gt; Rep LineIndex x)
 -&gt; (forall x. Rep LineIndex x -&gt; LineIndex) -&gt; Generic LineIndex
 forall x. Rep LineIndex x -&gt; LineIndex
 forall x. LineIndex -&gt; Rep LineIndex x
@@ -62,14 +62,14 @@ to :: forall x. Rep LineIndex x -&gt; LineIndex
 </span><a href="Codec.Wavefront.Line.html#lineIndexA"><span class="hs-identifier hs-var hs-var">lineIndexA</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
 </span><span id="line-27"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="lineIndexB"><span class="annot"><span class="annottext">Line -&gt; LineIndex
 </span><a href="Codec.Wavefront.Line.html#lineIndexB"><span class="hs-identifier hs-var hs-var">lineIndexB</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Codec.Wavefront.Line.html#LineIndex"><span class="hs-identifier hs-type">LineIndex</span></a></span><span>
-</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090931"><span id="local-6989586621679090935"><span class="annot"><span class="annottext">Line -&gt; Line -&gt; Bool
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679090922"><span id="local-6989586621679090926"><span class="annot"><span class="annottext">Line -&gt; Line -&gt; Bool
 (Line -&gt; Line -&gt; Bool) -&gt; (Line -&gt; Line -&gt; Bool) -&gt; Eq Line
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Line -&gt; Line -&gt; Bool
 == :: Line -&gt; Line -&gt; Bool
 $c/= :: Line -&gt; Line -&gt; Bool
 /= :: Line -&gt; Line -&gt; Bool
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090939"><span id="local-6989586621679090944"><span id="local-6989586621679090948"><span class="annot"><span class="annottext">Int -&gt; Line -&gt; ShowS
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-prim-0.13.0-e168/src/GHC.Classes.html#Eq"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></a></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090930"><span id="local-6989586621679090935"><span id="local-6989586621679090939"><span class="annot"><span class="annottext">Int -&gt; Line -&gt; ShowS
 [Line] -&gt; ShowS
 Line -&gt; String
 (Int -&gt; Line -&gt; ShowS)
@@ -82,7 +82,7 @@ $cshow :: Line -&gt; String
 show :: Line -&gt; String
 $cshowList :: [Line] -&gt; ShowS
 showList :: [Line] -&gt; ShowS
-</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090951"><span id="local-6989586621679090953"><span class="annot"><span class="annottext">(forall x. Line -&gt; Rep Line x)
+</span><a href="file:///usr/local/.ghcup/ghc/9.12.2/lib/ghc-9.12.2/lib/../../../share/doc/ghc-9.12.2/html/libraries/ghc-internal-9.1202.0-1465/src/GHC.Internal.Show.html#Show"><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></a></span></span></span></span><span class="hs-special">,</span><span id="local-6989586621679090942"><span id="local-6989586621679090944"><span class="annot"><span class="annottext">(forall x. Line -&gt; Rep Line x)
 -&gt; (forall x. Rep Line x -&gt; Line) -&gt; Generic Line
 forall x. Rep Line x -&gt; Line
 forall x. Line -&gt; Rep Line x
